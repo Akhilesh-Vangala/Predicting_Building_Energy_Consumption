@@ -1,0 +1,85 @@
+/Users/akhileshvangala/.matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /var/folders/z5/tpfyhbp10zl878tvkmbdptv00000gn/T/matplotlib-_rc3hnue because there was an issue with the default path (/Users/akhileshvangala/.matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+2026-05-05 15:15:10 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 15:15:11 | INFO | src.data.load | Loaded 139773 hourly weather records across 16 sites
+2026-05-05 15:15:11 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 15:15:11 | INFO | src.data.load | Filtering to 482 buildings from 4 sites
+2026-05-05 15:15:30 | INFO | src.data.load | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-05 15:15:30 | INFO | src.pipeline | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-05 15:15:32 | INFO | src.data.clean | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-05 15:15:32 | INFO | src.data.clean | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-05 15:15:32 | INFO | src.pipeline | After clean: 7,926,201 rows
+2026-05-05 15:15:32 | INFO | src.features.pipeline | Building features for 7,926,201 rows (is_train=True)
+2026-05-05 15:15:38 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 15:15:40 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 15:15:41 | INFO | src.pipeline | After dropna on features: train 5,949,707 -> 5,784,969
+2026-05-05 15:15:41 | INFO | src.utils | [prepare_data] took 30.73s
+2026-05-05 15:15:41 | INFO | __main__ | Built consumption profiles for 970 meters
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+2026-05-05 15:15:41 | INFO | __main__ | Elbow k = 5
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+2026-05-05 15:15:57 | INFO | src.utils | [cluster_0_lgbm] took 15.08s
+2026-05-05 15:16:11 | INFO | src.utils | [cluster_1_lgbm] took 11.60s
+2026-05-05 15:16:41 | INFO | src.utils | [cluster_2_lgbm] took 28.54s
+2026-05-05 15:17:42 | INFO | src.utils | [cluster_3_lgbm] took 56.16s
+2026-05-05 15:17:58 | INFO | src.utils | [cluster_4_lgbm] took 8.32s
+2026-05-05 15:22:40 | INFO | src.utils | [global_lgbm] took 280.50s
+2026-05-05 15:23:32 | INFO | __main__ | Clustering done: per-cluster RMSE=5663.26 vs global=5730.61

@@ -1,0 +1,77 @@
+paths:
+  raw: data/raw
+  processed: data/processed
+  results: results
+  models: results/models
+  plots: results/plots
+  metrics: results/metrics
+  tables: results/tables
+
+data:
+  train_csv: data/raw/train.csv
+  meta_csv: data/raw/building_metadata.csv
+  weather_csv: data/raw/weather_train.csv
+  site_subset: [7, 11]
+  use_full: false
+  reference_year: 2017
+  outlier_quantile: 0.999
+  zero_streak_min_hours: 48
+
+split:
+  train_months: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  val_months: [10, 11, 12]
+
+features:
+  lag_hours: [24, 168]
+  rolling_windows: [24, 168]
+  use_target_encoding: true
+  target_encoding_smoothing: 30
+
+clustering:
+  k_range: [2, 3, 4, 5, 6]
+  random_state: 42
+
+models:
+  linear:
+    alphas: [0.01, 0.1, 1.0, 10.0]
+    l1_ratios: [0.3, 0.5, 0.7]
+  decision_tree:
+    max_depth: [4, 8, 16]
+  random_forest:
+    n_estimators: 80
+    max_depth: 12
+    n_jobs: -1
+  lightgbm:
+    num_leaves: 63
+    learning_rate: 0.05
+    n_estimators: 400
+    feature_fraction: 0.9
+    bagging_fraction: 0.9
+    bagging_freq: 5
+    min_data_in_leaf: 50
+    early_stopping_rounds: 30
+  arima:
+    seasonal: true
+    m: 24
+    max_p: 2
+    max_q: 2
+    stepwise: true
+    max_meters: 6
+  lstm:
+    lookback: 168
+    hidden_size: 64
+    num_layers: 1
+    dropout: 0.1
+    batch_size: 256
+    learning_rate: 0.001
+    epochs: 5
+    patience: 3
+  mlp:
+    hidden_sizes: [128, 64]
+    dropout: 0.2
+    batch_size: 1024
+    learning_rate: 0.001
+    epochs: 10
+    patience: 3
+
+random_state: 42

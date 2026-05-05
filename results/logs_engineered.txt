@@ -1,0 +1,47 @@
+2026-05-04 18:44:09 | INFO | __main__ | Preparing data with feature_set=engineered
+2026-05-04 18:44:09 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-04 18:44:09 | INFO | src.data.load | Loaded 139773 hourly weather records across 16 sites
+2026-05-04 18:44:09 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-04 18:44:09 | INFO | src.data.load | Filtering to 482 buildings from 4 sites
+2026-05-04 18:44:29 | INFO | src.data.load | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-04 18:44:29 | INFO | src.pipeline | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-04 18:44:30 | INFO | src.data.clean | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-04 18:44:31 | INFO | src.data.clean | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-04 18:44:31 | INFO | src.pipeline | After clean: 7,926,201 rows
+2026-05-04 18:44:31 | INFO | src.features.pipeline | Building features for 7,926,201 rows (is_train=True)
+2026-05-04 18:44:36 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-04 18:44:37 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-04 18:44:38 | INFO | src.pipeline | After dropna on features: train 5,949,707 -> 5,784,969
+2026-05-04 18:44:38 | INFO | src.utils | [prepare_data] took 29.43s
+2026-05-04 18:44:39 | INFO | __main__ | === ols (linear): reusing saved predictions ===
+2026-05-04 18:44:39 | INFO | __main__ | [ols] RMSE=6428.25 | MAE=676.57 | CV-RMSE=8.517
+2026-05-04 18:44:39 | INFO | __main__ | === ridge (linear): reusing saved predictions ===
+2026-05-04 18:44:39 | INFO | __main__ | [ridge] RMSE=6428.26 | MAE=676.57 | CV-RMSE=8.517
+2026-05-04 18:44:39 | INFO | __main__ | === lasso (linear): reusing saved predictions ===
+2026-05-04 18:44:40 | INFO | __main__ | [lasso] RMSE=6557.71 | MAE=677.02 | CV-RMSE=8.689
+2026-05-04 18:44:40 | INFO | __main__ | === elasticnet (linear): reusing saved predictions ===
+2026-05-04 18:44:40 | INFO | __main__ | [elasticnet] RMSE=6319.32 | MAE=675.30 | CV-RMSE=8.373
+2026-05-04 18:44:40 | INFO | __main__ | === decision_tree (trees): reusing saved predictions ===
+2026-05-04 18:44:40 | INFO | __main__ | [decision_tree] RMSE=4990.54 | MAE=176.32 | CV-RMSE=6.612
+2026-05-04 18:44:40 | INFO | __main__ | === fitting random_forest (trees) ===
+2026-05-04 18:59:39 | INFO | src.utils | [fit_random_forest] took 898.64s
+2026-05-04 18:59:39 | INFO | __main__ | [random_forest] RMSE=4314.14 | MAE=146.02 | CV-RMSE=5.716
+2026-05-04 18:59:39 | INFO | __main__ | === fitting lightgbm (trees) ===
+2026-05-04 19:05:18 | INFO | src.utils | [fit_lightgbm] took 338.77s
+2026-05-04 19:05:19 | INFO | __main__ | [lightgbm] RMSE=5730.61 | MAE=199.96 | CV-RMSE=7.593
+2026-05-04 19:05:19 | INFO | __main__ | === fitting mlp (neural) ===
+2026-05-04 19:09:12 | INFO | src.utils | [fit_mlp] took 232.94s
+2026-05-04 19:09:13 | INFO | __main__ | [mlp] RMSE=10084.67 | MAE=332.48 | CV-RMSE=13.362
+2026-05-04 19:09:13 | INFO | __main__ | 
+              model   family          rmse         mae    cv_rmse    rmsle  train_seconds
+      random_forest    trees   4314.140032  146.022521   5.716241 0.687700     895.755845
+      decision_tree    trees   4990.544810  176.323463   6.612478 0.735480       0.000000
+           lightgbm    trees   5730.610054  199.957026   7.593066 0.675451       0.000000
+         elasticnet   linear   6319.320963  675.297615   8.373108 1.754498       0.000000
+                ols   linear   6428.253913  676.572220   8.517445 1.733682       0.000000
+              ridge   linear   6428.257800  676.572233   8.517450 1.733682       0.000000
+              lasso   linear   6557.714869  677.015329   8.688981 1.755664       0.000000
+                mlp   neural  10084.670669  332.476156  13.362201 0.903732       0.000000
+   baseline_lag_24h baseline  83958.557916  614.355497  76.396137 0.908627       0.000000
+baseline_meter_mean baseline 175277.199900 6141.827241 159.489412 1.458014       0.000000
+2026-05-04 19:09:13 | INFO | __main__ | Wrote results/tables/models_engineered.csv and results/metrics/models_engineered.json

@@ -1,0 +1,5 @@
+meter_name,ols,ridge,lasso,elasticnet
+chilledwater,3754.1,3754.1,3761.1,3760.8
+electricity,247.5,247.5,238.7,238.0
+hotwater,574.3,574.3,586.9,586.4
+steam,16478.0,16478.0,16837.9,16169.9

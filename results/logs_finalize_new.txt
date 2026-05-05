@@ -1,0 +1,644 @@
+[00:31:39] === step 1/3: arima only ===
+2026-05-05 00:31:41 | INFO | __main__ | Preparing data with feature_set=engineered
+2026-05-05 00:31:41 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 00:31:41 | INFO | src.data.load | Loaded 139773 hourly weather records across 16 sites
+2026-05-05 00:31:41 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 00:31:41 | INFO | src.data.load | Filtering to 482 buildings from 4 sites
+2026-05-05 00:32:00 | INFO | src.data.load | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-05 00:32:00 | INFO | src.pipeline | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-05 00:32:01 | INFO | src.data.clean | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-05 00:32:02 | INFO | src.data.clean | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-05 00:32:02 | INFO | src.pipeline | After clean: 7,926,201 rows
+2026-05-05 00:32:02 | INFO | src.features.pipeline | Building features for 7,926,201 rows (is_train=True)
+2026-05-05 00:32:07 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 00:32:08 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 00:32:09 | INFO | src.pipeline | After dropna on features: train 5,949,707 -> 5,784,969
+2026-05-05 00:32:09 | INFO | src.utils | [prepare_data] took 28.43s
+2026-05-05 00:32:09 | INFO | __main__ | === fitting arima (time_series) ===
+2026-05-05 00:32:11 | INFO | src.models.arima | ARIMA fitting meter 1/10 key=(np.int16(195), np.int8(0)) (train_len=6405)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 00:38:18 | INFO | src.models.arima | ARIMA fitting meter 2/10 key=(np.int16(195), np.int8(3)) (train_len=857)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 00:38:58 | INFO | src.models.arima | ARIMA fitting meter 3/10 key=(np.int16(199), np.int8(0)) (train_len=6405)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 00:46:32 | INFO | src.models.arima | ARIMA fitting meter 4/10 key=(np.int16(244), np.int8(1)) (train_len=6406)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 00:49:17 | INFO | src.models.arima | ARIMA fitting meter 5/10 key=(np.int16(1089), np.int8(2)) (train_len=6408)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 00:53:28 | INFO | src.models.arima | ARIMA fitting meter 6/10 key=(np.int16(1092), np.int8(0)) (train_len=6408)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 00:57:40 | INFO | src.models.arima | ARIMA fitting meter 7/10 key=(np.int16(1197), np.int8(0)) (train_len=6408)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 01:03:05 | INFO | src.models.arima | ARIMA fitting meter 8/10 key=(np.int16(1218), np.int8(2)) (train_len=5792)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 01:06:46 | INFO | src.models.arima | ARIMA fitting meter 9/10 key=(np.int16(1243), np.int8(0)) (train_len=6402)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 01:08:40 | INFO | src.models.arima | ARIMA fitting meter 10/10 key=(np.int16(1272), np.int8(3)) (train_len=6082)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3437: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+2026-05-05 01:11:36 | INFO | src.models.arima | ARIMA: fit 10 meters, fell back on 0
+2026-05-05 01:11:36 | INFO | __main__ | [arima] RMSE=1086.84 | MAE=440.60 | CV-RMSE=1.854
+2026-05-05 01:11:37 | INFO | __main__ | 
+              model      family          rmse         mae    cv_rmse    rmsle  train_seconds
+              arima time_series   1086.840530  440.597704   1.854170 2.231476    2366.460363
+      random_forest       trees   4314.140032  146.022521   5.716241 0.687700     895.755845
+      decision_tree       trees   4990.544810  176.323463   6.612478 0.735480       0.000000
+           lightgbm       trees   5730.610054  199.957026   7.593066 0.675451       0.000000
+         elasticnet      linear   6319.320963  675.297615   8.373108 1.754498       0.000000
+                ols      linear   6428.253913  676.572220   8.517445 1.733682       0.000000
+              ridge      linear   6428.257800  676.572233   8.517450 1.733682       0.000000
+              lasso      linear   6557.714869  677.015329   8.688981 1.755664       0.000000
+                mlp      neural  10084.670669  332.476156  13.362201 0.903732       0.000000
+   baseline_lag_24h    baseline  83958.557916  614.355497  76.396137 0.908627       0.000000
+baseline_meter_mean    baseline 175277.199900 6141.827241 159.489412 1.458014       0.000000
+2026-05-05 01:11:37 | INFO | __main__ | Wrote results/tables/models_engineered.csv and results/metrics/models_engineered.json
+[01:11:38] === step 2/3: lstm only ===
+2026-05-05 01:11:41 | INFO | __main__ | Preparing data with feature_set=engineered
+2026-05-05 01:11:41 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 01:11:41 | INFO | src.data.load | Loaded 139773 hourly weather records across 16 sites
+2026-05-05 01:11:41 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 01:11:41 | INFO | src.data.load | Filtering to 482 buildings from 4 sites
+2026-05-05 01:12:00 | INFO | src.data.load | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-05 01:12:00 | INFO | src.pipeline | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-05 01:12:02 | INFO | src.data.clean | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-05 01:12:02 | INFO | src.data.clean | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-05 01:12:02 | INFO | src.pipeline | After clean: 7,926,201 rows
+2026-05-05 01:12:02 | INFO | src.features.pipeline | Building features for 7,926,201 rows (is_train=True)
+2026-05-05 01:12:08 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 01:12:09 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 01:12:10 | INFO | src.pipeline | After dropna on features: train 5,949,707 -> 5,784,969
+2026-05-05 01:12:10 | INFO | src.utils | [prepare_data] took 28.86s
+2026-05-05 01:12:10 | INFO | __main__ | === fitting lstm (time_series) ===
+2026-05-05 01:12:10 | INFO | src.models.lstm | LSTM operating on 60 meters (stride=6, lookback=168)
+2026-05-05 01:12:10 | INFO | src.models.lstm | LSTM training tensor shape=(57864, 168, 27) (1049.9 MB)
+2026-05-05 01:12:11 | INFO | src.models.lstm | LSTM validation tensor shape=(121128, 168, 27) (2197.7 MB)
+2026-05-05 01:12:54 | INFO | src.models.lstm | LSTM ep=0 val_mse=1.7833
+2026-05-05 01:13:30 | INFO | src.models.lstm | LSTM ep=1 val_mse=2.4535
+2026-05-05 01:14:06 | INFO | src.models.lstm | LSTM ep=2 val_mse=1.3551
+2026-05-05 01:14:42 | INFO | src.models.lstm | LSTM ep=3 val_mse=1.0145
+2026-05-05 01:15:18 | INFO | src.models.lstm | LSTM ep=4 val_mse=1.0761
+2026-05-05 01:15:54 | INFO | src.models.lstm | LSTM ep=5 val_mse=1.0084
+2026-05-05 01:16:30 | INFO | src.models.lstm | LSTM ep=6 val_mse=1.0119
+2026-05-05 01:17:05 | INFO | src.models.lstm | LSTM ep=7 val_mse=0.9390
+2026-05-05 01:17:41 | INFO | src.models.lstm | LSTM ep=8 val_mse=0.9624
+2026-05-05 01:18:17 | INFO | src.models.lstm | LSTM ep=9 val_mse=1.0904
+2026-05-05 01:18:53 | INFO | src.models.lstm | LSTM ep=10 val_mse=0.9706
+2026-05-05 01:18:53 | INFO | src.models.lstm | LSTM early-stopped at ep=10
+2026-05-05 01:19:12 | INFO | __main__ | [lstm] RMSE=378.34 | MAE=107.06 | CV-RMSE=0.879
+2026-05-05 01:19:12 | INFO | __main__ | 
+              model      family          rmse         mae    cv_rmse    rmsle  train_seconds
+               lstm time_series    378.338488  107.062421   0.879326 0.968347     422.022848
+              arima time_series   1086.840530  440.597704   1.854170 2.231476    2366.460363
+      random_forest       trees   4314.140032  146.022521   5.716241 0.687700     895.755845
+      decision_tree       trees   4990.544810  176.323463   6.612478 0.735480       0.000000
+           lightgbm       trees   5730.610054  199.957026   7.593066 0.675451       0.000000
+         elasticnet      linear   6319.320963  675.297615   8.373108 1.754498       0.000000
+                ols      linear   6428.253913  676.572220   8.517445 1.733682       0.000000
+              ridge      linear   6428.257800  676.572233   8.517450 1.733682       0.000000
+              lasso      linear   6557.714869  677.015329   8.688981 1.755664       0.000000
+                mlp      neural  10084.670669  332.476156  13.362201 0.903732       0.000000
+   baseline_lag_24h    baseline  83958.557916  614.355497  76.396137 0.908627       0.000000
+baseline_meter_mean    baseline 175277.199900 6141.827241 159.489412 1.458014       0.000000
+2026-05-05 01:19:12 | INFO | __main__ | Wrote results/tables/models_engineered.csv and results/metrics/models_engineered.json
+[01:19:13] === step 3/3: clustering (with fix) ===
+2026-05-05 01:19:14 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 01:19:15 | INFO | src.data.load | Loaded 139773 hourly weather records across 16 sites
+2026-05-05 01:19:15 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 01:19:15 | INFO | src.data.load | Filtering to 482 buildings from 4 sites
+2026-05-05 01:19:33 | INFO | src.data.load | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-05 01:19:33 | INFO | src.pipeline | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-05 01:19:35 | INFO | src.data.clean | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-05 01:19:35 | INFO | src.data.clean | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-05 01:19:35 | INFO | src.pipeline | After clean: 7,926,201 rows
+2026-05-05 01:19:35 | INFO | src.features.pipeline | Building features for 7,926,201 rows (is_train=True)
+2026-05-05 01:19:41 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 01:19:42 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 01:19:43 | INFO | src.pipeline | After dropna on features: train 5,949,707 -> 5,784,969
+2026-05-05 01:19:43 | INFO | src.utils | [prepare_data] took 28.22s
+2026-05-05 01:19:43 | INFO | __main__ | Built consumption profiles for 970 meters
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+2026-05-05 01:19:43 | INFO | __main__ | Elbow k = 5
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+2026-05-05 01:19:58 | INFO | src.utils | [cluster_0_lgbm] took 15.07s
+2026-05-05 01:20:12 | INFO | src.utils | [cluster_1_lgbm] took 11.53s
+2026-05-05 01:20:42 | INFO | src.utils | [cluster_2_lgbm] took 28.33s
+2026-05-05 01:21:42 | INFO | src.utils | [cluster_3_lgbm] took 55.64s
+2026-05-05 01:21:58 | INFO | src.utils | [cluster_4_lgbm] took 8.16s
+2026-05-05 01:26:37 | INFO | src.utils | [global_lgbm] took 277.20s
+2026-05-05 01:27:29 | INFO | __main__ | Clustering done: per-cluster RMSE=77953.47 vs global=5730.61
+[01:27:29] === finalize done ===

@@ -1,0 +1,87 @@
+{
+  "feature_set": "raw",
+  "worst_use_per_model": {
+    "decision_tree": {
+      "Education": 51955.360665316526,
+      "Services": 14456.127054474568,
+      "Healthcare": 1369.5090453799087
+    },
+    "elasticnet": {
+      "Services": 18857.06706962254,
+      "Education": 10824.831922345507,
+      "Office": 4101.474321493778
+    },
+    "lasso": {
+      "Services": 18857.475261900763,
+      "Education": 10825.062303715116,
+      "Office": 4102.951569555176
+    },
+    "lightgbm": {
+      "Education": 48763.6360887131,
+      "Services": 13654.117753439132,
+      "Lodging/residential": 1237.0853647875276
+    },
+    "mlp": {
+      "Education": 18709.018825611987,
+      "Services": 14043.643562890356,
+      "Office": 2385.4957824786775
+    },
+    "ols": {
+      "Services": 18854.427349493126,
+      "Education": 10817.97925025173,
+      "Office": 4060.377601474207
+    },
+    "random_forest": {
+      "Education": 51934.78882702506,
+      "Services": 14809.03802934642,
+      "Healthcare": 1314.2475503949213
+    },
+    "ridge": {
+      "Services": 18854.427325946883,
+      "Education": 10817.979305753075,
+      "Office": 4060.3780611629004
+    }
+  },
+  "worst_meter_per_model": {
+    "decision_tree": {
+      "steam": 82519.58513135588,
+      "chilledwater": 3687.89463992307,
+      "hotwater": 461.14540556376534
+    },
+    "elasticnet": {
+      "steam": 18196.97650719798,
+      "chilledwater": 3761.565630653512,
+      "hotwater": 588.0494454693292
+    },
+    "lasso": {
+      "steam": 18198.21838037019,
+      "chilledwater": 3761.728654930215,
+      "hotwater": 588.8429648526054
+    },
+    "lightgbm": {
+      "steam": 77433.62128379112,
+      "chilledwater": 3694.8691409586295,
+      "hotwater": 469.9376268087683
+    },
+    "mlp": {
+      "steam": 29737.50260061946,
+      "chilledwater": 3736.856951967386,
+      "hotwater": 521.3730887434008
+    },
+    "ols": {
+      "steam": 18162.89851165115,
+      "chilledwater": 3757.5325746871413,
+      "hotwater": 576.6137280775501
+    },
+    "random_forest": {
+      "steam": 82489.28104438625,
+      "chilledwater": 3689.9350188709727,
+      "hotwater": 461.07860261634374
+    },
+    "ridge": {
+      "steam": 18162.898846276494,
+      "chilledwater": 3757.532607184001,
+      "hotwater": 576.6137117390198
+    }
+  }
+}
