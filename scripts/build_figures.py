@@ -166,13 +166,10 @@ def fig_per_cluster_vs_global(clustering_json: Path, out_dir: Path) -> None:
     d = json.loads(clustering_json.read_text())
     cm = pd.DataFrame(d["per_cluster_metrics"])
     global_rmse = d["global_lightgbm"]["rmse"]
-    overall_rmse = d["per_cluster_overall"]["rmse"]
     fig, ax = plt.subplots(figsize=(max(5, len(cm) * 0.9), 4.5))
     ax.bar(cm["cluster"].astype(str), cm["rmse"], color=PRIMARY, label="per-cluster LightGBM")
     ax.axhline(global_rmse, color=ACCENT, linestyle="--", linewidth=1.5,
                label=f"global LightGBM RMSE={global_rmse:,.0f}")
-    ax.axhline(overall_rmse, color=SUPPORT[2], linestyle=":", linewidth=1.5,
-               label=f"overall cluster RMSE={overall_rmse:,.0f}")
     ax.set_xlabel("cluster")
     ax.set_ylabel("RMSE (kWh)")
     ax.set_title("Per-cluster LightGBM vs. global LightGBM")
