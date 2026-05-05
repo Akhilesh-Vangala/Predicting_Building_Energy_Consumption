@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import json
 import re
+import uuid
 from pathlib import Path
+
+
+def _cell_id() -> str:
+    return uuid.uuid4().hex[:8]
 
 
 def cells_from_source(src: str) -> list[dict]:
@@ -19,12 +24,14 @@ def cells_from_source(src: str) -> list[dict]:
             text = "\n".join(line.lstrip("# ").rstrip() for line in body.splitlines())
             cells.append({
                 "cell_type": "markdown",
+                "id": _cell_id(),
                 "metadata": {},
                 "source": text.splitlines(keepends=True),
             })
         else:
             cells.append({
                 "cell_type": "code",
+                "id": _cell_id(),
                 "metadata": {},
                 "execution_count": None,
                 "outputs": [],
