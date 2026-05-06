@@ -1,0 +1,215 @@
+2026-05-05 21:33:02 | INFO | __main__ | Preparing data with feature_set=raw
+2026-05-05 21:33:02 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 21:33:02 | INFO | src.data.load | Loaded 139773 hourly weather records across 16 sites
+2026-05-05 21:33:02 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-05 21:33:02 | INFO | src.data.load | Filtering to 482 buildings from 4 sites
+2026-05-05 21:33:28 | INFO | src.data.load | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-05 21:33:28 | INFO | src.pipeline | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-05 21:33:31 | INFO | src.data.clean | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-05 21:33:31 | INFO | src.data.clean | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-05 21:33:31 | INFO | src.pipeline | After clean: 7,926,201 rows
+2026-05-05 21:33:31 | INFO | src.features.pipeline | Building features for 7,926,201 rows (is_train=True)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1241: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis, out=out, keepdims=keepdims)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1241: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis, out=out, keepdims=keepdims)
+2026-05-05 21:33:43 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 21:33:47 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-05 21:33:50 | INFO | src.pipeline | After dropna on features: train 5,949,707 -> 5,947,686
+2026-05-05 21:33:50 | INFO | src.utils | [prepare_data] took 48.04s
+2026-05-05 21:33:51 | INFO | __main__ | === fitting ols (linear) ===
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+2026-05-05 21:33:52 | INFO | src.utils | [fit_ols] took 1.00s
+2026-05-05 21:33:53 | INFO | __main__ | [ols] RMSE=7032.92 | MAE=679.03 | CV-RMSE=9.314
+2026-05-05 21:33:53 | INFO | __main__ | === fitting ridge (linear) ===
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+2026-05-05 21:33:56 | INFO | src.utils | [fit_ridge] took 2.96s
+2026-05-05 21:33:57 | INFO | __main__ | [ridge] RMSE=7032.92 | MAE=679.03 | CV-RMSE=9.314
+2026-05-05 21:33:57 | INFO | __main__ | === fitting lasso (linear) ===
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+2026-05-05 21:33:58 | INFO | src.utils | [fit_lasso] took 0.95s
+2026-05-05 21:33:58 | INFO | __main__ | [lasso] RMSE=7046.34 | MAE=684.01 | CV-RMSE=9.332
+2026-05-05 21:33:58 | INFO | __main__ | === fitting elasticnet (linear) ===
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: divide by zero encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: overflow encountered in matmul
+  return X @ coef_ + self.intercept_
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/sklearn/linear_model/_base.py:293: RuntimeWarning: invalid value encountered in matmul
+  return X @ coef_ + self.intercept_
+2026-05-05 21:34:00 | INFO | src.utils | [fit_elasticnet] took 2.26s
+2026-05-05 21:34:01 | INFO | __main__ | [elasticnet] RMSE=7045.86 | MAE=683.74 | CV-RMSE=9.331
+2026-05-05 21:34:01 | INFO | __main__ | === fitting decision_tree (trees) ===
+2026-05-05 21:34:10 | INFO | src.utils | [fit_decision_tree] took 8.49s
+2026-05-05 21:34:10 | INFO | __main__ | [decision_tree] RMSE=30844.88 | MAE=1098.62 | CV-RMSE=40.849
+2026-05-05 21:34:10 | INFO | __main__ | === fitting random_forest (trees) ===
+2026-05-05 21:36:24 | INFO | src.utils | [fit_random_forest] took 133.76s
+2026-05-05 21:36:25 | INFO | __main__ | [random_forest] RMSE=30833.67 | MAE=1108.09 | CV-RMSE=40.834
+2026-05-05 21:36:25 | INFO | __main__ | === fitting lightgbm (trees) ===
+2026-05-05 21:44:26 | INFO | src.utils | [fit_lightgbm] took 480.79s
+2026-05-05 21:44:28 | INFO | __main__ | [lightgbm] RMSE=28951.04 | MAE=1050.17 | CV-RMSE=38.341
+2026-05-05 21:44:28 | INFO | __main__ | === fitting mlp (neural) ===
+2026-05-05 21:55:34 | INFO | src.utils | [fit_mlp] took 666.03s
+2026-05-05 21:55:37 | INFO | __main__ | [mlp] RMSE=11251.59 | MAE=712.04 | CV-RMSE=14.901
+2026-05-05 21:55:38 | INFO | __main__ | === fitting lstm (time_series) ===
+2026-05-05 21:55:38 | INFO | src.models.lstm | LSTM operating on 60 meters (stride=6, lookback=168)
+2026-05-05 21:55:39 | INFO | src.models.lstm | LSTM training tensor shape=(60170, 168, 5) (202.2 MB)
+2026-05-05 21:55:40 | INFO | src.models.lstm | LSTM validation tensor shape=(120118, 168, 5) (403.6 MB)
+2026-05-05 21:56:21 | INFO | src.models.lstm | LSTM ep=0 val_mse=2.7193
+2026-05-05 21:57:00 | INFO | src.models.lstm | LSTM ep=1 val_mse=2.5982
+2026-05-05 21:57:38 | INFO | src.models.lstm | LSTM ep=2 val_mse=2.4781
+2026-05-05 21:58:16 | INFO | src.models.lstm | LSTM ep=3 val_mse=2.5504
+2026-05-05 21:58:53 | INFO | src.models.lstm | LSTM ep=4 val_mse=2.7323
+2026-05-05 21:59:30 | INFO | src.models.lstm | LSTM ep=5 val_mse=2.4057
+2026-05-05 22:00:07 | INFO | src.models.lstm | LSTM ep=6 val_mse=2.6518
+2026-05-05 22:00:44 | INFO | src.models.lstm | LSTM ep=7 val_mse=2.3261
+2026-05-05 22:01:21 | INFO | src.models.lstm | LSTM ep=8 val_mse=2.1694
+2026-05-05 22:01:58 | INFO | src.models.lstm | LSTM ep=9 val_mse=2.3472
+2026-05-05 22:02:35 | INFO | src.models.lstm | LSTM ep=10 val_mse=2.1466
+2026-05-05 22:03:12 | INFO | src.models.lstm | LSTM ep=11 val_mse=2.1461
+2026-05-05 22:03:31 | INFO | __main__ | [lstm] RMSE=1069.68 | MAE=336.82 | CV-RMSE=2.466
+2026-05-05 22:03:31 | INFO | __main__ | 
+              model      family          rmse         mae    cv_rmse    rmsle  train_seconds
+               lstm time_series   1069.681905  336.823294   2.465813 1.464950     473.383522
+               lstm time_series   1110.396643  356.455994   2.559668 1.552641     291.496279
+                ols      linear   7032.922042  679.033374   9.314007 1.759960       0.671908
+                ols      linear   7032.922042  679.033374   9.314007 1.759960       0.899215
+              ridge      linear   7032.923279  679.033379   9.314009 1.759959       2.316798
+              ridge      linear   7032.923279  679.033379   9.314009 1.759959       2.918453
+         elasticnet      linear   7045.860281  683.737029   9.331142 1.771576       2.164324
+         elasticnet      linear   7045.860281  683.737029   9.331142 1.771576       1.867058
+              lasso      linear   7046.342831  684.008526   9.331781 1.772736       0.678157
+              lasso      linear   7046.342831  684.008526   9.331781 1.772736       0.925162
+                mlp      neural  11251.593014  712.037718  14.900978 1.273986       0.000000
+                mlp      neural  11251.593014  712.037718  14.900978 1.273986       0.000000
+           lightgbm       trees  28951.044948 1050.172772  38.341138 1.019558       0.000000
+           lightgbm       trees  28951.044948 1050.172772  38.341138 1.019558       0.000000
+      random_forest       trees  30833.666812 1108.087428  40.834376 1.022912       0.000000
+      random_forest       trees  30833.666812 1108.087428  40.834376 1.022912     131.985328
+      decision_tree       trees  30844.880786 1098.621324  40.849227 0.992349       0.000000
+      decision_tree       trees  30844.880786 1098.621324  40.849227 0.992349       8.414059
+   baseline_lag_24h    baseline  83940.949168  614.286765  76.364117 0.908805       0.000000
+baseline_meter_mean    baseline 173420.579261 6065.543772 157.766973 1.454062       0.000000
+2026-05-05 22:03:31 | INFO | __main__ | Wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/tables/models_raw.csv and /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/metrics/models_raw.json
