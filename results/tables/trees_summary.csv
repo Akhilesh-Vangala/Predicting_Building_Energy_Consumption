@@ -1,0 +1,3 @@
+model,rmse
+random_forest,4314.140032144668
+lightgbm,5730.6100536177455
