@@ -256,7 +256,10 @@ def fig_eda_site_coverage(train_df: pd.DataFrame, out_dir: Path) -> None:
 def fig_residuals_by_hour(val_df: pd.DataFrame, pred_dir: Path,
                           eng_json: Path, out_dir: Path) -> None:
     d = json.loads(eng_json.read_text())
-    models_rmse = {m: d["models"][m]["metrics"]["rmse"] for m in d["models"]}
+    # exclude subset-only models — their predictions don't cover the full val set
+    _subset_models = {"arima", "lstm"}
+    models_rmse = {m: d["models"][m]["metrics"]["rmse"]
+                   for m in d["models"] if m not in _subset_models}
     best_model = min(models_rmse, key=models_rmse.get)
     pred_file = pred_dir / f"{best_model}_log_preds.npy"
     if not pred_file.exists():
