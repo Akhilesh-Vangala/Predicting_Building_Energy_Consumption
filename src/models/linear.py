@@ -7,6 +7,7 @@ import pandas as pd
 from sklearn.linear_model import (
     ElasticNetCV, LassoCV, LinearRegression, RidgeCV,
 )
+from sklearn.model_selection import TimeSeriesSplit
 from sklearn.preprocessing import StandardScaler
 
 from src.models.base import BaseModel
@@ -64,7 +65,8 @@ class RidgeModel(_LinearScaledMixin):
     def fit(self, X: pd.DataFrame, y: np.ndarray) -> "RidgeModel":
         Xs = self._fit_scaler(X)
         alphas = self.params.get("alphas", [0.001, 0.01, 0.1, 1.0, 10.0, 100.0])
-        self.model_ = RidgeCV(alphas=alphas)
+        n_splits = self.params.get("cv", 3)
+        self.model_ = RidgeCV(alphas=alphas, cv=TimeSeriesSplit(n_splits=n_splits))
         self.model_.fit(Xs, y)
         return self
 
@@ -80,7 +82,7 @@ class LassoModel(_LinearScaledMixin):
         Xs = self._fit_scaler(X)
         self.model_ = LassoCV(
             alphas=self.params.get("alphas"),
-            cv=self.params.get("cv", 3),
+            cv=TimeSeriesSplit(n_splits=self.params.get("cv", 3)),
             n_jobs=self.params.get("n_jobs", -1),
             random_state=self.params.get("random_state", 42),
             max_iter=self.params.get("max_iter", 5000),
@@ -101,7 +103,7 @@ class ElasticNetModel(_LinearScaledMixin):
         self.model_ = ElasticNetCV(
             alphas=self.params.get("alphas"),
             l1_ratio=self.params.get("l1_ratios", [0.1, 0.3, 0.5, 0.7, 0.9]),
-            cv=self.params.get("cv", 3),
+            cv=TimeSeriesSplit(n_splits=self.params.get("cv", 3)),
             n_jobs=self.params.get("n_jobs", -1),
             random_state=self.params.get("random_state", 42),
             max_iter=self.params.get("max_iter", 5000),
