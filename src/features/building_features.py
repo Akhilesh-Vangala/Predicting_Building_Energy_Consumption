@@ -14,9 +14,11 @@ def add_building_features(df: pd.DataFrame) -> pd.DataFrame:
     if "building_age" in df.columns:
         df["building_age"] = df["building_age"].astype(np.float32)
         if "site_id" in df.columns:
+            global_median = float(df["building_age"].median())
             df["building_age"] = df.groupby("site_id")["building_age"].transform(
                 lambda x: x.fillna(x.median())
             )
+            df["building_age"] = df["building_age"].fillna(global_median)
         else:
             df["building_age"] = df["building_age"].fillna(df["building_age"].median())
     return df
