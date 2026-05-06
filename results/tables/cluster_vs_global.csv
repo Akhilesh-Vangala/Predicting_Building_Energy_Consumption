@@ -1,3 +1,3 @@
 model,rmse
-per_cluster_lightgbm,5655.219383199147
-global_lightgbm,5730.6100536177455
+per_cluster_lightgbm,5520.38283793063
+global_lightgbm,77827.74357445957
