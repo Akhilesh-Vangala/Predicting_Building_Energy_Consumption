@@ -1,0 +1,42 @@
+[18:59:16] rebuilding .ipynb from .py sources
+wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/notebooks/01_eda.ipynb
+wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/notebooks/02_feature_engineering.ipynb
+wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/notebooks/03_linear_models.ipynb
+wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/notebooks/04_tree_models.ipynb
+wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/notebooks/05_time_series.ipynb
+wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/notebooks/06_mlp.ipynb
+wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/notebooks/07_clustering.ipynb
+wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/notebooks/08_analysis.ipynb
+[18:59:16] executing 01_eda.ipynb
+[NbConvertApp] Converting notebook notebooks/01_eda.ipynb to notebook
+[NbConvertApp] Writing 1928497 bytes to notebooks/01_eda.ipynb
+[18:59:50] done: 01_eda.ipynb
+[18:59:50] executing 02_feature_engineering.ipynb
+[NbConvertApp] Converting notebook notebooks/02_feature_engineering.ipynb to notebook
+[NbConvertApp] Writing 1364913 bytes to notebooks/02_feature_engineering.ipynb
+[19:00:31] done: 02_feature_engineering.ipynb
+[19:00:31] executing 03_linear_models.ipynb
+[NbConvertApp] Converting notebook notebooks/03_linear_models.ipynb to notebook
+[NbConvertApp] Writing 729969 bytes to notebooks/03_linear_models.ipynb
+[19:02:48] done: 03_linear_models.ipynb
+[19:02:48] executing 04_tree_models.ipynb
+[NbConvertApp] Converting notebook notebooks/04_tree_models.ipynb to notebook
+[NbConvertApp] Writing 438433 bytes to notebooks/04_tree_models.ipynb
+[19:30:52] done: 04_tree_models.ipynb
+[19:30:52] executing 05_time_series.ipynb
+[NbConvertApp] Converting notebook notebooks/05_time_series.ipynb to notebook
+[NbConvertApp] Writing 536126 bytes to notebooks/05_time_series.ipynb
+[19:43:36] done: 05_time_series.ipynb
+[19:43:36] executing 06_mlp.ipynb
+[NbConvertApp] Converting notebook notebooks/06_mlp.ipynb to notebook
+[NbConvertApp] Writing 289461 bytes to notebooks/06_mlp.ipynb
+[19:54:07] done: 06_mlp.ipynb
+[19:54:07] executing 07_clustering.ipynb
+[NbConvertApp] Converting notebook notebooks/07_clustering.ipynb to notebook
+[NbConvertApp] Writing 458088 bytes to notebooks/07_clustering.ipynb
+[20:02:26] done: 07_clustering.ipynb
+[20:02:26] executing 08_analysis.ipynb
+[NbConvertApp] Converting notebook notebooks/08_analysis.ipynb to notebook
+[NbConvertApp] Writing 346495 bytes to notebooks/08_analysis.ipynb
+[20:02:29] done: 08_analysis.ipynb
+[20:02:29] all notebooks executed
