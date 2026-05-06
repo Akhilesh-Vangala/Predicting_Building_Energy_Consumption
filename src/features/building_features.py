@@ -12,7 +12,11 @@ def add_building_features(df: pd.DataFrame) -> pd.DataFrame:
             df["primary_use_code"] = pd.Categorical(df["primary_use"]).codes.astype(np.int8)
 
     if "building_age" in df.columns:
-        df["building_age"] = df["building_age"].astype(np.float32).fillna(
-            df["building_age"].median()
-        )
+        df["building_age"] = df["building_age"].astype(np.float32)
+        if "site_id" in df.columns:
+            df["building_age"] = df.groupby("site_id")["building_age"].transform(
+                lambda x: x.fillna(x.median())
+            )
+        else:
+            df["building_age"] = df["building_age"].fillna(df["building_age"].median())
     return df
