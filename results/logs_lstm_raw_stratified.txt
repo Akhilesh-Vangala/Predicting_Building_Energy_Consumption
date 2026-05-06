@@ -1,0 +1,51 @@
+2026-05-06 17:13:18 | INFO | __main__ | Preparing data with feature_set=raw
+2026-05-06 17:13:18 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-06 17:13:18 | INFO | src.data.load | Loaded 139773 hourly weather records across 16 sites
+2026-05-06 17:13:18 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-06 17:13:18 | INFO | src.data.load | Filtering to 482 buildings from 4 sites
+2026-05-06 17:13:37 | INFO | src.data.load | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-06 17:13:37 | INFO | src.pipeline | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-06 17:13:38 | INFO | src.data.clean | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-06 17:13:39 | INFO | src.data.clean | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-06 17:13:39 | INFO | src.pipeline | After clean: 7,926,201 rows
+2026-05-06 17:13:39 | INFO | src.features.pipeline | Building features for 7,926,201 rows (is_train=True)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1241: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis, out=out, keepdims=keepdims)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1241: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis, out=out, keepdims=keepdims)
+2026-05-06 17:13:44 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-06 17:13:45 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-06 17:13:46 | INFO | src.pipeline | After dropna on features: train 5,949,707 -> 5,947,686
+2026-05-06 17:13:46 | INFO | src.utils | [prepare_data] took 27.73s
+2026-05-06 17:13:46 | INFO | __main__ | === fitting lstm (time_series) ===
+2026-05-06 17:13:46 | INFO | src.models.lstm | LSTM operating on 60 meters (stride=6, lookback=168)
+2026-05-06 17:13:46 | INFO | src.models.lstm | LSTM training tensor shape=(60578, 168, 5) (203.5 MB)
+2026-05-06 17:13:47 | INFO | src.models.lstm | LSTM validation tensor shape=(124561, 168, 5) (418.5 MB)
+2026-05-06 17:14:24 | INFO | src.models.lstm | LSTM ep=0 val_mse=3.5959
+2026-05-06 17:15:01 | INFO | src.models.lstm | LSTM ep=1 val_mse=3.5528
+2026-05-06 17:15:37 | INFO | src.models.lstm | LSTM ep=2 val_mse=3.2308
+2026-05-06 17:16:14 | INFO | src.models.lstm | LSTM ep=3 val_mse=2.9429
+2026-05-06 17:16:50 | INFO | src.models.lstm | LSTM ep=4 val_mse=2.7558
+2026-05-06 17:17:27 | INFO | src.models.lstm | LSTM ep=5 val_mse=2.8896
+2026-05-06 17:18:03 | INFO | src.models.lstm | LSTM ep=6 val_mse=3.0258
+2026-05-06 17:18:40 | INFO | src.models.lstm | LSTM ep=7 val_mse=2.6886
+2026-05-06 17:19:17 | INFO | src.models.lstm | LSTM ep=8 val_mse=2.5126
+2026-05-06 17:19:53 | INFO | src.models.lstm | LSTM ep=9 val_mse=4.1397
+2026-05-06 17:20:30 | INFO | src.models.lstm | LSTM ep=10 val_mse=2.8118
+2026-05-06 17:21:06 | INFO | src.models.lstm | LSTM ep=11 val_mse=2.6777
+2026-05-06 17:21:06 | INFO | src.models.lstm | LSTM early-stopped at ep=11
+2026-05-06 17:21:26 | INFO | __main__ | [lstm] RMSE=26631.46 | MAE=3244.51 | CV-RMSE=24.849
+2026-05-06 17:21:26 | INFO | __main__ | 
+              model      family          rmse         mae    cv_rmse    rmsle  train_seconds
+                ols      linear   7032.922042  679.033374   9.314007 1.759960       0.899215
+              ridge      linear   7032.923279  679.033379   9.314009 1.759959       2.918453
+         elasticnet      linear   7045.860281  683.737029   9.331142 1.771576       2.164324
+              lasso      linear   7046.342831  684.008526   9.331781 1.772736       0.925162
+                mlp      neural  11251.593014  712.037718  14.900978 1.273986       0.000000
+               lstm time_series  26631.459366 3244.513098  24.849051 1.582728     459.477817
+           lightgbm       trees  28951.044948 1050.172772  38.341138 1.019558       0.000000
+      random_forest       trees  30833.666812 1108.087428  40.834376 1.022912     131.985328
+      decision_tree       trees  30844.880786 1098.621324  40.849227 0.992349       8.414059
+   baseline_lag_24h    baseline  83940.949168  614.286765  76.364117 0.908805       0.000000
+baseline_meter_mean    baseline 173420.579261 6065.543772 157.766973 1.454062       0.000000
+2026-05-06 17:21:26 | INFO | __main__ | Wrote /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/tables/models_raw.csv and /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/metrics/models_raw.json
