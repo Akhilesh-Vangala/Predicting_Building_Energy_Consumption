@@ -1539,7 +1539,7 @@
         "primary_use_code": 18137465.014027596,
         "meter": 31836559.38541317
       },
-      "train_seconds": 0.0
+      "train_seconds": 483.0
     },
     "mlp": {
       "family": "neural",
@@ -1748,7 +1748,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 669.0
     },
     "lstm": {
       "family": "time_series",

@@ -1715,7 +1715,7 @@
         "sqft_x_temp": 216964.60014677048,
         "te_primary_use_x_hour": 472160.1033177376
       },
-      "train_seconds": 0.0
+      "train_seconds": 283.0
     },
     "mlp": {
       "family": "neural",
@@ -1924,7 +1924,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 307.0
     },
     "arima": {
       "family": "time_series",
