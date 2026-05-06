@@ -98,7 +98,20 @@ class LSTMModel(BaseModel):
         keys = list(meter_keys)
         all_keys = train_df[keys].drop_duplicates()
         if max_meters is not None and len(all_keys) > int(max_meters):
-            all_keys = all_keys.sample(n=int(max_meters), random_state=42)
+            n = int(max_meters)
+            meter_col = "meter" if "meter" in keys else None
+            if meter_col is not None:
+                # Stratified sample so every meter type is represented
+                parts = [
+                    g.sample(n=max(1, round(n * len(g) / len(all_keys))), random_state=42)
+                    for _, g in all_keys.groupby(meter_col, group_keys=False)
+                ]
+                import pandas as _pd
+                all_keys = _pd.concat(parts).drop_duplicates()
+                if len(all_keys) > n:
+                    all_keys = all_keys.sample(n=n, random_state=42)
+            else:
+                all_keys = all_keys.sample(n=n, random_state=42)
         log.info("LSTM operating on %d meters (stride=%d, lookback=%d)",
                  len(all_keys), stride, lookback)
 
