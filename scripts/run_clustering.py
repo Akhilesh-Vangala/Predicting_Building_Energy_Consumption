@@ -60,6 +60,31 @@ def main() -> None:
     train = prep.train_full.merge(cluster_labels, on=["building_id", "meter"], how="left")
     val = prep.val_full.merge(cluster_labels, on=["building_id", "meter"], how="left")
 
+    # Buildings that appear only in val (zero training rows after cleaning) get NaN
+    # cluster. Assign them to the nearest centroid using their val hourly profile.
+    missing_mask = val["cluster"].isna()
+    if missing_mask.any():
+        missing_keys = val.loc[missing_mask, ["building_id", "meter"]].drop_duplicates()
+        logger.info(
+            "Assigning %d val-only meters to nearest cluster via val profile",
+            len(missing_keys),
+        )
+        val_profiles = build_consumption_profiles(
+            val.loc[missing_mask, ["building_id", "meter", "timestamp", "meter_reading"]]
+        )
+        if len(val_profiles):
+            assigned = assign_clusters(km, val_profiles).reset_index()
+            val = val.merge(
+                assigned.rename(columns={"cluster": "_cluster_fallback"}),
+                on=["building_id", "meter"],
+                how="left",
+            )
+            val["cluster"] = val["cluster"].fillna(val["_cluster_fallback"])
+            val = val.drop(columns=["_cluster_fallback"])
+            cluster_labels = pd.concat(
+                [cluster_labels, assigned], ignore_index=True
+            ).drop_duplicates(subset=["building_id", "meter"])
+
     train = train.reset_index(drop=True)
     val = val.reset_index(drop=True)
     feature_cols = prep.feature_cols
