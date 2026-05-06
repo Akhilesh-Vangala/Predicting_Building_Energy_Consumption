@@ -242,8 +242,8 @@ def main() -> None:
     if args.feature_set == "engineered":
         if (args.only is None or "arima" in args.only) and "arima" not in args.skip:
             _run_arima(cfg, prep, rows, detailed, pred_dir)
-        if (args.only is None or "lstm" in args.only) and "lstm" not in args.skip:
-            _run_lstm(cfg, prep, rows, detailed, pred_dir)
+    if (args.only is None or "lstm" in args.only) and "lstm" not in args.skip:
+        _run_lstm(cfg, prep, rows, detailed, pred_dir)
 
     df = pd.DataFrame(rows).sort_values("rmse")
     df.to_csv(table_path, index=False)
