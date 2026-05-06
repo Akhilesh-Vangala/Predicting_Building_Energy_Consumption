@@ -1,0 +1,124 @@
+2026-05-06 18:44:31 | INFO | Loading data...
+2026-05-06 18:44:31 | INFO | Loaded metadata for 1449 buildings across 16 sites
+2026-05-06 18:44:31 | INFO | Loaded 139773 hourly weather records across 16 sites
+2026-05-06 18:44:31 | INFO | Loaded metadata for 1449 buildings across 16 sites
+2026-05-06 18:44:31 | INFO | Filtering to 482 buildings from 4 sites
+2026-05-06 18:44:50 | INFO | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-06 18:44:50 | INFO | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-06 18:44:51 | INFO | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-06 18:44:52 | INFO | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-06 18:44:52 | INFO | After clean: 7,926,201 rows
+2026-05-06 18:44:52 | INFO | Building features for 7,926,201 rows (is_train=True)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1241: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis, out=out, keepdims=keepdims)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1241: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis, out=out, keepdims=keepdims)
+2026-05-06 18:44:57 | INFO | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-06 18:44:58 | INFO | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-06 18:44:59 | INFO | After dropna on features: train 5,949,707 -> 5,784,969
+2026-05-06 18:44:59 | INFO | Fitting ARIMA on 100 meters with 8 workers
+2026-05-06 18:44:59 | INFO | Data prep done in 28.3s, submitting 100 tasks
+[6/100] bld=1300 meter=0 order=(2, 1, 2) OK
+[8/100] bld=1123 meter=0 order=(1, 1, 2) OK
+[3/100] bld=1075 meter=0 order=(2, 1, 2) OK
+[4/100] bld=1129 meter=1 order=(2, 1, 2) OK
+[7/100] bld=1257 meter=0 order=(1, 1, 2) OK
+[5/100] bld=189 meter=1 order=(2, 1, 2) OK
+[1/100] bld=1167 meter=1 order=(1, 1, 2) OK
+[2/100] bld=273 meter=1 order=(1, 1, 1) OK
+[10/100] bld=1156 meter=0 order=(1, 1, 2) OK
+[11/100] bld=191 meter=3 order=(2, 1, 2) OK
+[14/100] bld=1210 meter=2 order=(2, 1, 2) OK
+[17/100] bld=171 meter=3 order=(2, 1, 2) OK
+[9/100] bld=197 meter=1 order=(2, 1, 2) OK
+[13/100] bld=1105 meter=0 order=(2, 1, 1) OK
+[15/100] bld=1148 meter=1 order=(2, 1, 2) OK
+[16/100] bld=623 meter=0 order=(2, 1, 2) OK
+[19/100] bld=1164 meter=1 order=(2, 1, 2) OK
+[12/100] bld=1319 meter=3 order=(1, 1, 2) OK
+[18/100] bld=188 meter=0 order=(2, 1, 2) OK
+[23/100] bld=629 meter=0 order=(2, 0, 1) OK
+[20/100] bld=1263 meter=2 order=(2, 1, 2) OK
+[22/100] bld=290 meter=1 order=(2, 1, 1) OK
+[21/100] bld=1301 meter=0 order=(2, 1, 1) OK
+[25/100] bld=1180 meter=1 order=(2, 1, 2) OK
+[24/100] bld=1256 meter=2 order=(1, 1, 2) OK
+[26/100] bld=169 meter=0 order=(2, 0, 2) OK
+[31/100] bld=1169 meter=2 order=(1, 1, 0) OK
+[28/100] bld=1129 meter=0 order=(2, 0, 1) OK
+[30/100] bld=1107 meter=0 order=(2, 1, 2) OK
+[27/100] bld=1296 meter=3 order=(1, 1, 2) OK
+[29/100] bld=1307 meter=2 order=(1, 1, 2) OK
+[35/100] bld=264 meter=3 order=(1, 1, 0) OK
+[33/100] bld=218 meter=0 order=(2, 1, 2) OK
+[39/100] bld=1136 meter=1 order=(2, 1, 2) OK
+[38/100] bld=1148 meter=0 order=(2, 1, 2) OK
+[32/100] bld=1233 meter=1 order=(1, 1, 2) OK
+[40/100] bld=1083 meter=0 order=(2, 1, 2) OK
+[41/100] bld=196 meter=0 order=(2, 1, 2) OK
+[36/100] bld=1091 meter=2 order=(2, 1, 2) OK
+[34/100] bld=205 meter=1 order=(1, 1, 1) OK
+[44/100] bld=1319 meter=1 order=(0, 1, 0) OK
+[37/100] bld=1226 meter=2 order=(2, 1, 2) OK
+[42/100] bld=1292 meter=2 order=(1, 1, 1) OK
+[45/100] bld=1323 meter=1 order=(2, 1, 2) OK
+[48/100] bld=1285 meter=0 order=(2, 1, 2) OK
+[49/100] bld=245 meter=1 order=(2, 1, 2) OK
+[43/100] bld=175 meter=3 order=(2, 1, 2) OK
+[46/100] bld=217 meter=0 order=(2, 1, 2) OK
+[51/100] bld=231 meter=1 order=(2, 1, 2) OK
+[54/100] bld=1288 meter=0 order=(0, 1, 2) OK
+[57/100] bld=568 meter=0 order=(2, 0, 2) OK
+[55/100] bld=1307 meter=1 order=(2, 1, 2) OK
+[52/100] bld=1151 meter=1 order=(1, 1, 2) OK
+[50/100] bld=1265 meter=0 order=(2, 1, 2) OK
+[47/100] bld=1283 meter=2 order=(2, 1, 2) OK
+[53/100] bld=1102 meter=0 order=(2, 1, 1) OK
+[56/100] bld=184 meter=0 order=(2, 1, 1) OK
+[58/100] bld=1196 meter=0 order=(0, 1, 1) OK
+[64/100] bld=187 meter=3 order=(2, 1, 2) OK
+[60/100] bld=1210 meter=1 order=(2, 1, 2) OK
+[65/100] bld=588 meter=0 order=(2, 0, 2) OK
+[63/100] bld=1173 meter=0 order=(0, 1, 1) OK
+[61/100] bld=1214 meter=2 order=(2, 1, 1) OK
+[66/100] bld=1309 meter=0 order=(2, 1, 2) OK
+[59/100] bld=1271 meter=1 order=(2, 1, 1) OK
+[62/100] bld=249 meter=1 order=(1, 1, 2) OK
+[67/100] bld=1143 meter=2 order=(2, 1, 2) OK
+[68/100] bld=1150 meter=1 order=(1, 1, 1) OK
+[74/100] bld=1230 meter=1 order=(0, 1, 1) OK
+[73/100] bld=1097 meter=1 order=(1, 1, 2) OK
+[75/100] bld=1149 meter=2 order=(2, 1, 1) OK
+[70/100] bld=1262 meter=3 order=(0, 1, 2) OK
+[72/100] bld=1169 meter=1 order=(2, 1, 2) OK
+[69/100] bld=186 meter=0 order=(2, 1, 2) OK
+[76/100] bld=606 meter=0 order=(2, 1, 2) OK
+[71/100] bld=1245 meter=1 order=(2, 1, 2) OK
+[77/100] bld=258 meter=1 order=(2, 1, 2) OK
+[79/100] bld=1210 meter=0 order=(2, 1, 2) OK
+[81/100] bld=1301 meter=2 order=(2, 1, 2) OK
+[82/100] bld=1290 meter=0 order=(2, 1, 2) OK
+[83/100] bld=1254 meter=0 order=(0, 1, 1) OK
+[84/100] bld=201 meter=1 order=(2, 1, 2) OK
+[80/100] bld=1215 meter=0 order=(2, 1, 2) OK
+[89/100] bld=1196 meter=1 order=(2, 1, 1) OK
+[87/100] bld=1262 meter=0 order=(2, 1, 2) OK
+[86/100] bld=226 meter=1 order=(2, 1, 2) OK
+[88/100] bld=1197 meter=0 order=(1, 1, 2) OK
+[78/100] bld=1263 meter=0 order=(1, 1, 1) OK
+[85/100] bld=1234 meter=3 order=(1, 1, 2) OK
+[90/100] bld=1245 meter=0 order=(2, 1, 2) OK
+[96/100] bld=1266 meter=1 order=(0, 1, 1) OK
+[93/100] bld=584 meter=0 order=(2, 1, 2) OK
+[98/100] bld=1306 meter=1 order=(2, 1, 0) OK
+[91/100] bld=1234 meter=1 order=(1, 1, 2) OK
+[99/100] bld=234 meter=1 order=(2, 1, 2) OK
+[92/100] bld=1167 meter=2 order=(2, 1, 1) OK
+[100/100] bld=260 meter=1 order=(2, 1, 2) OK
+[97/100] bld=268 meter=0 order=(2, 1, 1) OK
+[95/100] bld=1199 meter=0 order=(2, 1, 2) OK
+[94/100] bld=1270 meter=3 order=(2, 1, 2) OK
+2026-05-06 18:45:53 | INFO | Parallel fitting done: 100/100 meters in 54.0s
+2026-05-06 18:45:53 | INFO | [arima] RMSE=983.81 | MAE=275.86 | CV-RMSE=2.291 | meters=100 | rows=198251
+2026-05-06 18:45:53 | INFO | Saved to /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/metrics/models_engineered.json
+2026-05-06 18:45:53 | INFO | Updated /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/tables/models_engineered.csv
