@@ -1,0 +1,8 @@
+model,full_dataset_rmse,note
+random_forest,4314.9,full 1.97M rows
+lightgbm,5721.9,full 1.97M rows
+decision_tree,4990.6,full 1.97M rows
+mlp,10068.6,full 1.97M rows
+lstm_original,409.2,"60 meters, no steam (biased)"
+lstm_stratified,19125.5,"60 meters, stratified incl. steam (honest)"
+arima,1086.8,18 meters subset
