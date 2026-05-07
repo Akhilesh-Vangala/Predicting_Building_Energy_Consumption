@@ -146,6 +146,11 @@ def evaluate_predictions(
     }
 
 
+def _clip_real(arr: np.ndarray) -> np.ndarray:
+    """Clip raw kWh values to the same ceiling used in evaluate_predictions (expm1(14))."""
+    return np.clip(arr, 0.0, np.expm1(14.0))
+
+
 def baseline_meter_mean(prep: PreparedData) -> dict[str, Any]:
     from src.evaluation.metrics import score_predictions
 
@@ -154,9 +159,11 @@ def baseline_meter_mean(prep: PreparedData) -> dict[str, Any]:
     means = train.groupby(["building_id", "meter"], observed=True)["meter_reading"].mean()
     val_means = val.set_index(["building_id", "meter"]).index.map(means).to_numpy()
     val_means = np.where(pd.isna(val_means), float(train["meter_reading"].mean()), val_means)
+    y_true = _clip_real(prep.target_raw_val)
+    y_pred = _clip_real(val_means.astype(np.float64))
     return {
         "name": "baseline_meter_mean",
-        "metrics": score_predictions(prep.target_raw_val, val_means.astype(np.float64)),
+        "metrics": score_predictions(y_true, y_pred),
         "predictions": val_means,
     }
 
@@ -168,8 +175,10 @@ def baseline_lag_24h(prep: PreparedData) -> dict[str, Any]:
     if "lag_24h" not in val.columns:
         return {"name": "baseline_lag_24h", "metrics": {}, "predictions": None}
     pred = val["lag_24h"].fillna(val["meter_reading"].median()).to_numpy(dtype=np.float64)
+    y_true = _clip_real(prep.target_raw_val)
+    y_pred = _clip_real(pred)
     return {
         "name": "baseline_lag_24h",
-        "metrics": score_predictions(prep.target_raw_val, pred),
+        "metrics": score_predictions(y_true, y_pred),
         "predictions": pred,
     }

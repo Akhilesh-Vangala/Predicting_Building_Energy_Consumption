@@ -67,11 +67,12 @@ def fig_model_rmse_bar(eng_csv: Path, out_dir: Path) -> None:
 
 
 def fig_ablation_delta(eng_csv: Path, raw_csv: Path, out_dir: Path) -> None:
-    eng = pd.read_csv(eng_csv).set_index("model")
-    raw = pd.read_csv(raw_csv).set_index("model")
+    eng = pd.read_csv(eng_csv)
+    raw = pd.read_csv(raw_csv)
+    eng = eng[eng["family"] != "baseline"].drop_duplicates("model").set_index("model")
+    raw = raw[raw["family"] != "baseline"].drop_duplicates("model").set_index("model")
     common = [m for m in MODEL_ORDER
-              if m in eng.index and m in raw.index
-              and eng.loc[m, "family"] not in ("baseline",)]
+              if m in eng.index and m in raw.index]
     if not common:
         logger.warning("ablation_delta: no common models")
         return

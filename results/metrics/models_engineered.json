@@ -42,18 +42,18 @@
   "baselines": {
     "meter_mean": {
       "metrics": {
-        "rmse": 175277.1999002494,
-        "mae": 6141.8272412953165,
-        "cv_rmse": 159.48941202417046,
-        "rmsle": 1.4580142299283971
+        "rmse": 39627.43906558463,
+        "mae": 1690.4421201370196,
+        "cv_rmse": 52.506407070127985,
+        "rmsle": 1.4510982833908146
       }
     },
     "lag_24h": {
       "metrics": {
-        "rmse": 83958.55791608649,
-        "mae": 614.3554973978462,
-        "cv_rmse": 76.39613734161921,
-        "rmsle": 0.9086271174093681
+        "rmse": 6444.764035868623,
+        "mae": 193.7161046640796,
+        "cv_rmse": 8.539320529348128,
+        "rmsle": 0.9081724449366313
       }
     }
   },
@@ -264,36 +264,8 @@
           "rmsle": 2.0085079846450524
         }
       ],
-      "feature_importance": {
-        "hour_sin": -0.08678435688276509,
-        "hour_cos": 0.0296861733437769,
-        "dayofweek_sin": 0.002422368116430727,
-        "dayofweek_cos": 0.007713615516273513,
-        "month_sin": -0.02976017357737926,
-        "month_cos": -0.056112851078143906,
-        "is_weekend": -0.04659798161248883,
-        "is_holiday": -0.023967958156463288,
-        "lag_24h": -0.0083527771650003,
-        "lag_168h": -0.0010661341477407264,
-        "lag_diff_24h": -0.010925985961182801,
-        "rolling_mean_24h": 0.11440599218900592,
-        "rolling_std_24h": 0.03694027332912896,
-        "rolling_mean_168h": 0.034119437939235706,
-        "rolling_std_168h": 0.058818184875743536,
-        "air_temperature": 0.25856327446851357,
-        "dew_temperature": 0.24562427709134713,
-        "temp_squared": 0.25744156090869214,
-        "wind_speed": -0.01400668669940446,
-        "cloud_coverage": -0.08244173290344145,
-        "precip_depth_1_hr": 0.0004990219138488802,
-        "log_square_feet": 1.005423325502418,
-        "building_age": -0.17609158172557335,
-        "primary_use_code": -0.01956701894209541,
-        "hour_x_weekend": -0.029777909022893193,
-        "sqft_x_temp": -0.8403722605878308,
-        "te_primary_use_x_hour": 0.27588256935356864
-      },
-      "train_seconds": 3.8128057919966523
+      "feature_importance": null,
+      "train_seconds": 0.0
     },
     "ridge": {
       "family": "linear",
@@ -501,36 +473,8 @@
           "rmsle": 2.008498949402076
         }
       ],
-      "feature_importance": {
-        "hour_sin": -0.08678436631324761,
-        "hour_cos": 0.02968196795091122,
-        "dayofweek_sin": 0.0024242709747145847,
-        "dayofweek_cos": 0.0077115468256113194,
-        "month_sin": -0.029772339104299998,
-        "month_cos": -0.056123803169911765,
-        "is_weekend": -0.04659683300451167,
-        "is_holiday": -0.02396901050666676,
-        "lag_24h": -0.008336296127396302,
-        "lag_168h": -0.001054855557127215,
-        "lag_diff_24h": -0.010918195582547238,
-        "rolling_mean_24h": 0.11436671729833446,
-        "rolling_std_24h": 0.0369464099690792,
-        "rolling_mean_168h": 0.03412682310360594,
-        "rolling_std_168h": 0.05882266078848815,
-        "air_temperature": 0.2554679832005384,
-        "dew_temperature": 0.2456017942443471,
-        "temp_squared": 0.25750289540497096,
-        "wind_speed": -0.014006636267086427,
-        "cloud_coverage": -0.08243272113343608,
-        "precip_depth_1_hr": 0.000500129075236136,
-        "log_square_feet": 1.0049880350706841,
-        "building_age": -0.17607126849928822,
-        "primary_use_code": -0.01956952392630267,
-        "hour_x_weekend": -0.029777533218561254,
-        "sqft_x_temp": -0.8373194344660504,
-        "te_primary_use_x_hour": 0.2758743258829629
-      },
-      "train_seconds": 10.823675624997122
+      "feature_importance": null,
+      "train_seconds": 0.0
     },
     "lasso": {
       "family": "linear",
@@ -738,36 +682,8 @@
           "rmsle": 2.006517582677995
         }
       ],
-      "feature_importance": {
-        "hour_sin": -0.06712778093048193,
-        "hour_cos": 0.004750766400020783,
-        "dayofweek_sin": 0.0022871539963052207,
-        "dayofweek_cos": 0.0,
-        "month_sin": -0.04129221213135718,
-        "month_cos": -0.03506283070092313,
-        "is_weekend": -0.04603363091920316,
-        "is_holiday": -0.00820400684027708,
-        "lag_24h": 0.0,
-        "lag_168h": 0.009622805165850333,
-        "lag_diff_24h": -0.0,
-        "rolling_mean_24h": 0.09068194195574653,
-        "rolling_std_24h": 0.032083738626243336,
-        "rolling_mean_168h": 0.033280502678869096,
-        "rolling_std_168h": 0.05885232417487563,
-        "air_temperature": -0.0,
-        "dew_temperature": 0.17635163990540673,
-        "temp_squared": 0.14892019781973978,
-        "wind_speed": -0.0,
-        "cloud_coverage": -0.06460302679654961,
-        "precip_depth_1_hr": 0.0,
-        "log_square_feet": 0.9460618562908956,
-        "building_age": -0.15757368898962973,
-        "primary_use_code": -0.0036081941868922962,
-        "hour_x_weekend": -0.015375236761765266,
-        "sqft_x_temp": -0.4173007972417632,
-        "te_primary_use_x_hour": 0.26548287698846823
-      },
-      "train_seconds": 10.61254908299452
+      "feature_importance": null,
+      "train_seconds": 0.0
     },
     "elasticnet": {
       "family": "linear",
@@ -975,36 +891,8 @@
           "rmsle": 2.0078020567175265
         }
       ],
-      "feature_importance": {
-        "hour_sin": -0.08531608024281354,
-        "hour_cos": 0.027611751914663977,
-        "dayofweek_sin": 0.0027313855396204874,
-        "dayofweek_cos": 0.0061376494531681985,
-        "month_sin": -0.029753141875398417,
-        "month_cos": -0.05554346601426182,
-        "is_weekend": -0.04620784193274434,
-        "is_holiday": -0.0226983842473987,
-        "lag_24h": 0.0,
-        "lag_168h": 0.0,
-        "lag_diff_24h": -0.010214465807342178,
-        "rolling_mean_24h": 0.10672306877045935,
-        "rolling_std_24h": 0.03653716388906387,
-        "rolling_mean_168h": 0.03188992186813705,
-        "rolling_std_168h": 0.059426376966934265,
-        "air_temperature": 0.0,
-        "dew_temperature": 0.2429167951885818,
-        "temp_squared": 0.2610471004284338,
-        "wind_speed": -0.012689221110087403,
-        "cloud_coverage": -0.0808683967153621,
-        "precip_depth_1_hr": 0.0,
-        "log_square_feet": 0.9694825613978916,
-        "building_age": -0.17325314883846202,
-        "primary_use_code": -0.01869523479600307,
-        "hour_x_weekend": -0.02850569075234099,
-        "sqft_x_temp": -0.5816004161154436,
-        "te_primary_use_x_hour": 0.2745571512213752
-      },
-      "train_seconds": 52.94134699999995
+      "feature_importance": null,
+      "train_seconds": 0.0
     },
     "decision_tree": {
       "family": "trees",
@@ -1212,36 +1100,8 @@
           "rmsle": 0.6541656918084464
         }
       ],
-      "feature_importance": {
-        "hour_sin": 0.0012936426788276176,
-        "hour_cos": 0.0011728745142196618,
-        "dayofweek_sin": 0.0006975741751739467,
-        "dayofweek_cos": 0.0013341487920971262,
-        "month_sin": 0.0008397037819763914,
-        "month_cos": 0.0004055644144856327,
-        "is_weekend": 8.71726781491142e-05,
-        "is_holiday": 4.807412247774031e-05,
-        "lag_24h": 0.5878523607332812,
-        "lag_168h": 0.14859876069485684,
-        "lag_diff_24h": 0.0009864667690483303,
-        "rolling_mean_24h": 0.2296059540812529,
-        "rolling_std_24h": 0.00742354468231765,
-        "rolling_mean_168h": 0.0030634843629058187,
-        "rolling_std_168h": 0.003788690996146544,
-        "air_temperature": 0.0005719386216358,
-        "dew_temperature": 0.0027502934945473397,
-        "temp_squared": 0.00046911827130439126,
-        "wind_speed": 0.0003708972554892564,
-        "cloud_coverage": 0.00013915329246527,
-        "precip_depth_1_hr": 6.205212962471282e-06,
-        "log_square_feet": 0.0028527627286785407,
-        "building_age": 0.0003760830168149879,
-        "primary_use_code": 0.0009454325385278488,
-        "hour_x_weekend": 0.0004374616136939698,
-        "sqft_x_temp": 0.0013183868026784714,
-        "te_primary_use_x_hour": 0.0025642496739851314
-      },
-      "train_seconds": 92.71085641699756
+      "feature_importance": null,
+      "train_seconds": 0.0
     },
     "random_forest": {
       "family": "trees",
@@ -1449,36 +1309,8 @@
           "rmsle": 0.6072702808487306
         }
       ],
-      "feature_importance": {
-        "hour_sin": 0.0010172746661031669,
-        "hour_cos": 0.0009267138785828326,
-        "dayofweek_sin": 0.0004973845511697219,
-        "dayofweek_cos": 0.0010533817999722021,
-        "month_sin": 0.0006467941982405301,
-        "month_cos": 0.0002127169197356715,
-        "is_weekend": 4.896590931465567e-05,
-        "is_holiday": 3.3996612153739806e-05,
-        "lag_24h": 0.5933371041304243,
-        "lag_168h": 0.14902065304736795,
-        "lag_diff_24h": 0.0008372907461749913,
-        "rolling_mean_24h": 0.23137096751390496,
-        "rolling_std_24h": 0.006610955990370026,
-        "rolling_mean_168h": 0.0023483243385400312,
-        "rolling_std_168h": 0.002800803971533691,
-        "air_temperature": 0.00031732426326741553,
-        "dew_temperature": 0.0020942268568856,
-        "temp_squared": 0.00032471029975611297,
-        "wind_speed": 0.00021694586180116007,
-        "cloud_coverage": 8.134187587489593e-05,
-        "precip_depth_1_hr": 4.640848289303325e-06,
-        "log_square_feet": 0.0018615893210240104,
-        "building_age": 0.0001563018483125489,
-        "primary_use_code": 0.0006184998583903245,
-        "hour_x_weekend": 0.0003397800593604832,
-        "sqft_x_temp": 0.0009580681016885036,
-        "te_primary_use_x_hour": 0.002263242531761149
-      },
-      "train_seconds": 918.4909127089995
+      "feature_importance": null,
+      "train_seconds": 0.0
     },
     "lightgbm": {
       "family": "trees",
@@ -1686,36 +1518,8 @@
           "rmsle": 0.5919194706739414
         }
       ],
-      "feature_importance": {
-        "hour_sin": 539891.8830516338,
-        "hour_cos": 423748.19829034805,
-        "dayofweek_sin": 321621.41182756424,
-        "dayofweek_cos": 351530.62027454376,
-        "month_sin": 347133.3838765621,
-        "month_cos": 195928.17215538025,
-        "is_weekend": 10058.618253707886,
-        "is_holiday": 22450.897617340088,
-        "lag_24h": 101919130.73949313,
-        "lag_168h": 40713756.94523311,
-        "lag_diff_24h": 1083405.2858223915,
-        "rolling_mean_24h": 43362324.2547009,
-        "rolling_std_24h": 1705682.3177435398,
-        "rolling_mean_168h": 865273.6224656105,
-        "rolling_std_168h": 737468.2303996086,
-        "air_temperature": 454900.4081168175,
-        "dew_temperature": 697463.2468223572,
-        "temp_squared": 123494.0971930027,
-        "wind_speed": 142668.14643979073,
-        "cloud_coverage": 95903.06785869598,
-        "precip_depth_1_hr": 28094.37658882141,
-        "log_square_feet": 821104.5831794739,
-        "building_age": 98408.859790802,
-        "primary_use_code": 472056.2579269409,
-        "hour_x_weekend": 91189.9186668396,
-        "sqft_x_temp": 216964.60014677048,
-        "te_primary_use_x_hour": 472160.1033177376
-      },
-      "train_seconds": 283.0
+      "feature_importance": null,
+      "train_seconds": 0.0
     },
     "mlp": {
       "family": "neural",
@@ -1924,153 +1728,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 307.0
-    },
-    "arima": {
-      "family": "time_series",
-      "metrics": {
-        "rmse": 983.8060443986285,
-        "mae": 275.86088390403063,
-        "cv_rmse": 2.2908629080324254,
-        "rmsle": 1.7247016958347294
-      },
-      "by_meter": [],
-      "by_primary_use": [],
-      "by_site": [],
-      "feature_importance": null,
-      "train_seconds": 54.0276139589987,
-      "n_predicted_rows": 198251,
-      "n_meters": 100
-    },
-    "lstm": {
-      "family": "time_series",
-      "metrics": {
-        "rmse": 19125.476705350917,
-        "mae": 729.7120033892525,
-        "cv_rmse": 18.766240646828575,
-        "rmsle": 1.3964599692319808
-      },
-      "by_primary_use": [
-        {
-          "primary_use": "Retail",
-          "n": 2207,
-          "rmse": 1.2516926997330768,
-          "mae": 1.0282940416270634,
-          "cv_rmse": 1.0365022459783113,
-          "rmsle": 0.5331982698405369
-        },
-        {
-          "primary_use": "Warehouse/storage",
-          "n": 2207,
-          "rmse": 25.74348798403803,
-          "mae": 20.693687922931872,
-          "cv_rmse": 0.29497973641635217,
-          "rmsle": 0.3328864816654245
-        },
-        {
-          "primary_use": "Food sales and service",
-          "n": 2060,
-          "rmse": 38.92828836097742,
-          "mae": 32.31109704138006,
-          "cv_rmse": 0.21206046346628665,
-          "rmsle": 0.25933776958656235
-        },
-        {
-          "primary_use": "Healthcare",
-          "n": 282,
-          "rmse": 95.36244384563142,
-          "mae": 75.13191268849351,
-          "cv_rmse": 21.13213619334111,
-          "rmsle": 3.571347827318087
-        },
-        {
-          "primary_use": "Parking",
-          "n": 3118,
-          "rmse": 112.46441175921399,
-          "mae": 58.66254322126751,
-          "cv_rmse": 2.2203762555360003,
-          "rmsle": 2.010737520020218
-        },
-        {
-          "primary_use": "Public services",
-          "n": 5872,
-          "rmse": 116.51807811975259,
-          "mae": 77.11529473049268,
-          "cv_rmse": 0.7876760789391135,
-          "rmsle": 1.739027408870937
-        },
-        {
-          "primary_use": "Office",
-          "n": 10196,
-          "rmse": 122.97193396345153,
-          "mae": 44.170612021386276,
-          "cv_rmse": 1.8167346592370544,
-          "rmsle": 1.4892767164807368
-        },
-        {
-          "primary_use": "Lodging/residential",
-          "n": 14954,
-          "rmse": 162.61240210702172,
-          "mae": 98.34689348294306,
-          "cv_rmse": 0.9837702672646728,
-          "rmsle": 1.4475042636333675
-        },
-        {
-          "primary_use": "Entertainment/public assembly",
-          "n": 12724,
-          "rmse": 3287.7334803426866,
-          "mae": 1234.7249686622226,
-          "cv_rmse": 1.4729318200840085,
-          "rmsle": 0.9354248141389605
-        },
-        {
-          "primary_use": "Education",
-          "n": 70376,
-          "rmse": 25347.84811757053,
-          "mae": 1024.188171703153,
-          "cv_rmse": 19.139293293928898,
-          "rmsle": 1.419229823193451
-        }
-      ],
-      "by_meter": [
-        {
-          "meter_name": "electricity",
-          "n": 59906,
-          "rmse": 534.203796846012,
-          "mae": 169.24540700146812,
-          "cv_rmse": 2.0722942391014447,
-          "rmsle": 1.2908218250594894
-        },
-        {
-          "meter_name": "chilledwater",
-          "n": 42552,
-          "rmse": 870.1966437934057,
-          "mae": 189.39746062126386,
-          "cv_rmse": 2.9965651877321187,
-          "rmsle": 1.4348989453261967
-        },
-        {
-          "meter_name": "hotwater",
-          "n": 21538,
-          "rmse": 45864.554110739824,
-          "mae": 3356.0828988795515,
-          "cv_rmse": 10.021636691990961,
-          "rmsle": 1.5889192163912884
-        }
-      ],
-      "by_site": [
-        {
-          "site_id": 2,
-          "n": 123996,
-          "rmse": 19125.476705350917,
-          "mae": 729.7120033892525,
-          "cv_rmse": 18.766240646828575,
-          "rmsle": 1.3964599692319808
-        }
-      ],
-      "feature_importance": null,
-      "train_seconds": 468.1577274159936,
-      "n_predicted_rows": 123996
+      "train_seconds": 0.0
     }
   }
 }
