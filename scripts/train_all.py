@@ -170,6 +170,7 @@ def main() -> None:
         "models": {},
     }
 
+    prior_loaded: set[str] = set()
     if not args.refit and metrics_path.exists():
         prior = load_json(metrics_path)
         prior_models = prior.get("models", {}) if isinstance(prior, dict) else {}
@@ -188,6 +189,7 @@ def main() -> None:
                 **metrics,
                 "train_seconds": float(prior_payload.get("train_seconds", 0.0)),
             })
+            prior_loaded.add(prior_name)
 
     for name, family, model in _build_models(cfg):
         if args.only is not None and name not in args.only:
@@ -221,7 +223,8 @@ def main() -> None:
             **eval_payload["overall"],
             "train_seconds": train_seconds,
         }
-        rows.append(row)
+        if name not in prior_loaded:
+            rows.append(row)
         detailed["models"][name] = {
             "family": family,
             "metrics": eval_payload["overall"],
