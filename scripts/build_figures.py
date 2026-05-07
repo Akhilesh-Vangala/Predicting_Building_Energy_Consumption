@@ -19,11 +19,14 @@ logger = logging.getLogger(__name__)
 
 METER_NAMES = {0: "electricity", 1: "chilledwater", 2: "steam", 3: "hotwater"}
 
+# ARIMA is excluded from the main comparison (sampled meters only, not full val set)
 MODEL_ORDER = [
     "ols", "ridge", "lasso", "elasticnet",
     "decision_tree", "random_forest", "lightgbm",
-    "arima", "lstm", "mlp",
+    "lstm", "mlp",
 ]
+
+SAMPLED_MODELS = {"arima"}  # reported separately with sample size noted
 
 FAMILY_COLOR = {
     "linear": SUPPORT[0],
@@ -44,12 +47,14 @@ def _save(fig: plt.Figure, out_dir: Path, name: str) -> None:
 # ---------------------------------------------------------------------------
 
 def fig_model_rmse_bar(eng_csv: Path, out_dir: Path) -> None:
-    df = pd.read_csv(eng_csv).sort_values("rmse")
+    df = pd.read_csv(eng_csv)
+    # Exclude ARIMA — evaluated on sampled meters only, not comparable to full-val models
+    df = df[~df["model"].isin(SAMPLED_MODELS)].sort_values("rmse")
     fig, ax = plt.subplots(figsize=(10, max(4, 0.45 * len(df) + 1.0)))
     colors = [FAMILY_COLOR.get(f, PRIMARY) for f in df["family"]]
     bars = ax.barh(df["model"], df["rmse"], color=colors)
     ax.set_xlabel("RMSE (kWh)")
-    ax.set_title("Model comparison — validation RMSE")
+    ax.set_title("Model comparison — validation RMSE\n(ARIMA reported separately: sampled meters only)")
     from matplotlib.patches import Patch
     seen = {}
     for fam, color in zip(df["family"], colors):
