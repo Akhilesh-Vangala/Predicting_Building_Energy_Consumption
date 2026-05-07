@@ -326,6 +326,70 @@ def fig_cluster_centroids(train_df: pd.DataFrame, clustering_json: Path,
 
 
 # ---------------------------------------------------------------------------
+# Sample complexity & imputation experiment figures
+# ---------------------------------------------------------------------------
+
+def fig_sample_complexity(csv_path: Path, out_dir: Path) -> None:
+    df = pd.read_csv(csv_path)
+    if df.empty:
+        logger.warning("sample_complexity.csv is empty — skipping figure")
+        return
+
+    palette = {"ridge": SUPPORT[0], "lightgbm": SUPPORT[1], "mlp": SUPPORT[3]}
+    markers = {"ridge": "o", "lightgbm": "s", "mlp": "^"}
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    for model_name, grp in df.groupby("model"):
+        grp = grp.sort_values("n_train")
+        ax.plot(
+            grp["n_train"] / 1_000,
+            grp["rmse"],
+            marker=markers.get(model_name, "o"),
+            color=palette.get(model_name, PRIMARY),
+            label=model_name,
+            linewidth=1.8,
+            markersize=6,
+        )
+    ax.set_xlabel("Training set size (thousands of rows)")
+    ax.set_ylabel("Validation RMSE (kWh)")
+    ax.set_title("Sample complexity curves")
+    ax.legend(title="model")
+    ax.grid(True)
+    fig.tight_layout()
+    _save(fig, out_dir, "sample_complexity")
+    logger.info("sample_complexity done")
+
+
+def fig_imputation_experiment(csv_path: Path, out_dir: Path) -> None:
+    df = pd.read_csv(csv_path)
+    if df.empty:
+        logger.warning("imputation_experiment.csv is empty — skipping figure")
+        return
+
+    baseline_rows = df.loc[df["strategy"] == "drop", "rmse"]
+    baseline = float(baseline_rows.iloc[0]) if len(baseline_rows) else df["rmse"].min()
+
+    labels = df["label"].tolist()
+    rmses = df["rmse"].tolist()
+    colors = [ACCENT if r < baseline - 1 else (SUPPORT[0] if r == baseline else PRIMARY)
+              for r in rmses]
+
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    bars = ax.barh(labels, rmses, color=colors)
+    for bar, val in zip(bars, rmses):
+        ax.text(val * 1.005, bar.get_y() + bar.get_height() / 2,
+                f"{val:,.1f}", va="center", fontsize=9)
+    ax.axvline(baseline, color="#555", linewidth=0.9, linestyle="--",
+               label="current (drop)")
+    ax.set_xlabel("Validation RMSE (kWh)")
+    ax.set_title("Effect of zero-streak imputation strategy on LightGBM")
+    ax.legend(fontsize=8)
+    fig.tight_layout()
+    _save(fig, out_dir, "imputation_experiment")
+    logger.info("imputation_experiment done")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -340,7 +404,7 @@ def main() -> None:
     cfg = load_config(args.config)
     set_style()
 
-    out_dir = Path("results/figures")
+    out_dir = cfg.paths.plots
     out_dir.mkdir(parents=True, exist_ok=True)
 
     metrics_dir = cfg.paths.metrics
@@ -370,6 +434,14 @@ def main() -> None:
     if clustering_json.exists():
         fig_per_cluster_vs_global(clustering_json, out_dir)
 
+    sc_csv = metrics_dir / "sample_complexity.csv"
+    if sc_csv.exists():
+        fig_sample_complexity(sc_csv, out_dir)
+
+    imp_csv = metrics_dir / "imputation_experiment.csv"
+    if imp_csv.exists():
+        fig_imputation_experiment(imp_csv, out_dir)
+
     if args.skip_eda:
         logger.info("--skip-eda: skipping data-dependent figures")
     else:
@@ -391,7 +463,7 @@ def main() -> None:
             fig_cluster_centroids(train_df, clustering_json, out_dir)
 
     files = sorted(out_dir.glob("*"))
-    logger.info("results/figures/ has %d files", len(files))
+    logger.info("%s has %d files", out_dir, len(files))
 
 
 if __name__ == "__main__":

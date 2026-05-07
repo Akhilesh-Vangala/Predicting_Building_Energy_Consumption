@@ -63,7 +63,7 @@ models:
     min_data_in_leaf: 50
     early_stopping_rounds: 50
   arima:
-    seasonal: false
+    seasonal: true
     m: 24
     max_p: 2
     max_q: 2

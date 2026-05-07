@@ -12,7 +12,7 @@ import math
 import os
 import sys
 import time
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, as_completed, TimeoutError as FutureTimeoutError
 from pathlib import Path
 
 import numpy as np
@@ -69,6 +69,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/default.yaml")
     parser.add_argument("--n-jobs", type=int, default=8)
+    parser.add_argument("--timeout", type=int, default=300, help="per-meter timeout in seconds")
     parser.add_argument("--feature-set", default="engineered")
     args = parser.parse_args()
 
@@ -111,18 +112,25 @@ def main() -> None:
 
     log.info("Data prep done in %.1fs, submitting %d tasks", time.perf_counter() - t0, len(work_items))
 
-    # Run in parallel
+    # Run in parallel with per-meter timeout
     t1 = time.perf_counter()
     results = []
+    timed_out = 0
     with ProcessPoolExecutor(max_workers=args.n_jobs, mp_context=__import__("multiprocessing").get_context("spawn")) as pool:
         futures = {pool.submit(_fit_one_meter, item): item for item in work_items}
         for future in as_completed(futures):
-            r = future.result()
-            if r is not None:
-                results.append(r)
+            try:
+                r = future.result(timeout=args.timeout)
+                if r is not None:
+                    results.append(r)
+            except FutureTimeoutError:
+                item = futures[future]
+                log.warning("Meter bld=%s meter=%s timed out after %ds — skipping", item[0], item[1], args.timeout)
+                timed_out += 1
+                future.cancel()
 
     elapsed = time.perf_counter() - t1
-    log.info("Parallel fitting done: %d/%d meters in %.1fs", len(results), len(work_items), elapsed)
+    log.info("Parallel fitting done: %d/%d meters in %.1fs (%d timed out)", len(results), len(work_items), elapsed, timed_out)
 
     if not results:
         log.error("No ARIMA results — exiting")
@@ -142,8 +150,32 @@ def main() -> None:
     cv_rmse   = rmse_val / mean_y
     rmsle_val = float(np.sqrt(np.mean((np.log1p(all_preds) - np.log1p(all_actuals)) ** 2)))
 
+    # Per-meter-type breakdown
+    METER_NAMES = {0: "electricity", 1: "chilledwater", 2: "steam", 3: "hotwater"}
+    meter_groups: dict[int, tuple[list, list]] = {}
+    for r in results:
+        m = r["meter"]
+        meter_groups.setdefault(m, ([], []))
+        meter_groups[m][0].extend(r["preds"])
+        meter_groups[m][1].extend(r["actuals"])
+    by_meter = []
+    for m_code, (preds_m, acts_m) in sorted(meter_groups.items()):
+        pa = np.clip(np.array(preds_m), 0, None)
+        aa = np.clip(np.array(acts_m), 0, None)
+        mn = np.mean(aa) if np.mean(aa) > 0 else 1.0
+        by_meter.append({
+            "meter_name": METER_NAMES.get(m_code, str(m_code)),
+            "n": len(pa),
+            "rmse": float(np.sqrt(np.mean((pa - aa) ** 2))),
+            "mae": float(np.mean(np.abs(pa - aa))),
+            "cv_rmse": float(np.sqrt(np.mean((pa - aa) ** 2)) / mn),
+            "rmsle": float(np.sqrt(np.mean((np.log1p(pa) - np.log1p(aa)) ** 2))),
+        })
+
     log.info("[arima] RMSE=%.2f | MAE=%.2f | CV-RMSE=%.3f | meters=%d | rows=%d",
              rmse_val, mae_val, cv_rmse, len(results), len(all_preds))
+    for bm in by_meter:
+        log.info("  %s: n=%d RMSE=%.1f", bm["meter_name"], bm["n"], bm["rmse"])
 
     # Merge into existing metrics JSON
     metrics_path = cfg.paths.metrics / f"models_{args.feature_set}.json"
@@ -160,7 +192,7 @@ def main() -> None:
             "cv_rmse": cv_rmse,
             "rmsle": rmsle_val,
         },
-        "by_meter": [],
+        "by_meter": by_meter,
         "by_primary_use": [],
         "by_site": [],
         "feature_importance": None,
