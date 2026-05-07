@@ -1,222 +1,253 @@
-"""
-Parallel ARIMA fitting — runs each meter in a separate process.
-Replaces the serial loop in train_all.py for ARIMA.
-Results are merged into models_engineered.json.
+"""Parallel ARIMA fitting across meters using ProcessPoolExecutor.
+
+Each meter's ARIMA model is independent, so we can fit N_WORKERS meters
+simultaneously. macOS requires the 'spawn' multiprocessing context and
+thread-count env vars to be set before any numpy/pmdarima import.
+
+Usage:
+    python -m scripts.run_arima_parallel --config configs/default.yaml
+
+Outputs:
+    results/metrics/models_engineered.json  (updated with arima row)
+    results/tables/models_engineered.csv    (updated)
 """
 from __future__ import annotations
 
-import argparse
-import json
-import logging
-import math
+# Thread-count env vars must be set before ANY numpy/scipy import.
 import os
-import sys
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+
+import argparse
+import logging
+import multiprocessing as mp
 import time
-from concurrent.futures import ProcessPoolExecutor, as_completed, TimeoutError as FutureTimeoutError
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-os.environ.setdefault("OMP_NUM_THREADS", "1")
-os.environ.setdefault("MKL_NUM_THREADS", "1")
-os.environ.setdefault("VECLIB_MAXIMUM_THREADS", "1")
+from src.config import load_config
+from src.pipeline import evaluate_predictions, prepare_data
+from src.utils import load_json, save_json, set_seed, setup_logging
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+logger = logging.getLogger(__name__)
+
+# --- tunables ---
+N_WORKERS = 4       # CPU cores to use; leave at least 4 for the LSTM run
+N_METERS  = 30      # number of meters to fit ARIMA on
+MAX_P     = 2
+MAX_Q     = 2
+MAX_ORDER = 4
+STEPWISE  = True
+# ----------------
 
 
 def _fit_one_meter(args: tuple) -> dict | None:
-    """Fit ARIMA for a single (building_id, meter) pair. Runs in a worker process."""
+    """Worker function: fit ARIMA for a single (building_id, meter) pair.
+
+    Runs in a spawned subprocess — all imports happen here so the worker
+    process is clean and macOS-safe.
+    """
+    import os
     os.environ["OMP_NUM_THREADS"] = "1"
     os.environ["MKL_NUM_THREADS"] = "1"
     os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
+    os.environ["OPENBLAS_NUM_THREADS"] = "1"
 
-    (building_id, meter, train_series, val_series, arima_params, idx, total) = args
-
-    import warnings
-    warnings.filterwarnings("ignore")
-
-    from pmdarima import auto_arima
+    (bid, mtr, train_ts, train_y, val_ts, val_y,
+     max_p, max_q, max_order, stepwise) = args
 
     try:
+        from pmdarima import auto_arima
+        import warnings
+        warnings.filterwarnings("ignore")
+
+        # Match src/models/arima.py exactly:
+        # fit on log1p-space, use SARIMA m=24, expm1 predictions back to real space.
+        y_train_log = np.log1p(np.clip(train_y, 0, None))
+
+        series = pd.Series(y_train_log, index=pd.to_datetime(train_ts))
+        series = series.asfreq("h").interpolate(method="time").fillna(method="bfill").fillna(0)
+
+        if len(series) < 2 * 24 or np.all(series.values == series.values[0]):
+            raise ValueError("series too short or constant")
+
         model = auto_arima(
-            train_series,
-            seasonal=arima_params.get("seasonal", False),
-            m=arima_params.get("m", 24),
-            max_p=arima_params.get("max_p", 2),
-            max_q=arima_params.get("max_q", 2),
-            max_order=arima_params.get("max_order", 4),
-            stepwise=arima_params.get("stepwise", True),
+            series,
+            seasonal=True,
+            m=24,
+            max_p=max_p, max_q=max_q,
+            max_order=max_order,
+            stepwise=stepwise,
             suppress_warnings=True,
             error_action="ignore",
+            information_criterion="aic",
         )
-        preds = model.predict(n_periods=len(val_series))
-        preds = np.clip(preds, 0, None)
-        print(f"[{idx}/{total}] bld={building_id} meter={meter} order={model.order} OK", flush=True)
+
+        n_val = len(val_ts)
+        forecast_log = model.predict(n_periods=n_val)
+        preds_real = np.clip(np.expm1(forecast_log), 0, None)
+
+        ts_strs = pd.to_datetime(val_ts).strftime("%Y-%m-%d %H:%M:%S").tolist()
+
         return {
-            "building_id": int(building_id),
-            "meter": int(meter),
-            "preds": preds.tolist(),
-            "actuals": val_series.tolist(),
-            "train_len": len(train_series),
+            "building_id": int(bid),
+            "meter": int(mtr),
+            "pred": preds_real.tolist(),
+            "actual": val_y.tolist(),
+            "val_ts": ts_strs,
         }
     except Exception as e:
-        print(f"[{idx}/{total}] bld={building_id} meter={meter} FAILED: {e}", flush=True)
-        return None
+        return {"building_id": int(bid), "meter": int(mtr), "error": str(e)}
 
 
 def main() -> None:
+    setup_logging()
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", default="configs/default.yaml")
-    parser.add_argument("--n-jobs", type=int, default=8)
-    parser.add_argument("--timeout", type=int, default=300, help="per-meter timeout in seconds")
-    parser.add_argument("--feature-set", default="engineered")
+    parser.add_argument("--config", required=True)
+    parser.add_argument("--n-meters", type=int, default=N_METERS)
+    parser.add_argument("--n-workers", type=int, default=N_WORKERS)
     args = parser.parse_args()
 
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s",
-                        datefmt="%Y-%m-%d %H:%M:%S")
-    log = logging.getLogger(__name__)
-
-    from src.config import load_config
-    from src.pipeline import prepare_data, evaluate_predictions
-    from src.utils import load_json, save_json
-
     cfg = load_config(args.config)
-    arima_params = cfg.models.get("arima", {})
-    max_meters = arima_params.get("max_meters", 100)
+    set_seed(cfg.random_state)
 
-    log.info("Loading data...")
-    t0 = time.perf_counter()
-    prep = prepare_data(cfg, feature_set=args.feature_set)
+    logger.info("Loading data...")
+    prep = prepare_data(cfg, feature_set="engineered", target_log=False)
 
     keys = ["building_id", "meter"]
-    all_keys = prep.train_full[keys].drop_duplicates()
-    if max_meters and len(all_keys) > max_meters:
-        all_keys = all_keys.sample(n=int(max_meters), random_state=42)
-    log.info("Fitting ARIMA on %d meters with %d workers", len(all_keys), args.n_jobs)
+    ts_col = "timestamp"
 
-    target_col = "meter_reading"
-    timestamp_col = "timestamp"
-    work_items = []
-    for idx, (_, row) in enumerate(all_keys.iterrows(), 1):
-        bid, meter = int(row["building_id"]), int(row["meter"])
-        train_m = prep.train_full[(prep.train_full["building_id"] == bid) & (prep.train_full["meter"] == meter)]
-        val_m   = prep.val_full[(prep.val_full["building_id"] == bid) & (prep.val_full["meter"] == meter)]
-        if len(train_m) < 50 or len(val_m) == 0:
+    # Stratified sample: all 4 meter types represented proportionally.
+    all_keys = (
+        prep.train_full[keys]
+        .drop_duplicates()
+        .reset_index(drop=True)
+    )
+    n = args.n_meters
+    parts = [
+        g.sample(n=max(1, round(n * len(g) / len(all_keys))), random_state=42)
+        for _, g in all_keys.groupby("meter", group_keys=False)
+    ]
+    selected = pd.concat(parts).drop_duplicates().head(n)
+    logger.info("Selected %d meters (stratified by meter type).", len(selected))
+
+    # Build per-meter train/val numpy arrays to pass to workers.
+    train_full = prep.train_full.sort_values(keys + [ts_col])
+    val_full   = prep.val_full.sort_values(keys + [ts_col])
+
+    tasks = []
+    for _, row in selected.iterrows():
+        bid, mtr = int(row["building_id"]), int(row["meter"])
+        tr = train_full[(train_full.building_id == bid) & (train_full.meter == mtr)]
+        vl = val_full[(val_full.building_id == bid) & (val_full.meter == mtr)]
+        if len(tr) < 50 or len(vl) == 0:
             continue
-        train_series = train_m.sort_values(timestamp_col)[target_col].to_numpy(dtype=np.float64)
-        val_series   = val_m.sort_values(timestamp_col)[target_col].to_numpy(dtype=np.float64)
-        work_items.append((bid, meter, train_series, val_series, dict(arima_params), idx, len(all_keys)))
+        tasks.append((
+            bid, mtr,
+            tr[ts_col].to_numpy(),
+            tr["meter_reading"].to_numpy(dtype=np.float64),
+            vl[ts_col].to_numpy(),
+            vl["meter_reading"].to_numpy(dtype=np.float64),
+            MAX_P, MAX_Q, MAX_ORDER, STEPWISE,
+        ))
 
-    log.info("Data prep done in %.1fs, submitting %d tasks", time.perf_counter() - t0, len(work_items))
+    logger.info("Submitting %d tasks to %d workers...", len(tasks), args.n_workers)
+    t0 = time.perf_counter()
 
-    t1 = time.perf_counter()
+    ctx = mp.get_context("spawn")   # required for macOS safety with pmdarima
     results = []
-    timed_out = 0
-    with ProcessPoolExecutor(max_workers=args.n_jobs, mp_context=__import__("multiprocessing").get_context("spawn")) as pool:
-        futures = {pool.submit(_fit_one_meter, item): item for item in work_items}
-        for future in as_completed(futures):
-            try:
-                r = future.result(timeout=args.timeout)
-                if r is not None:
-                    results.append(r)
-            except FutureTimeoutError:
-                item = futures[future]
-                log.warning("Meter bld=%s meter=%s timed out after %ds — skipping", item[0], item[1], args.timeout)
-                timed_out += 1
-                future.cancel()
+    done = 0
 
-    elapsed = time.perf_counter() - t1
-    log.info("Parallel fitting done: %d/%d meters in %.1fs (%d timed out)", len(results), len(work_items), elapsed, timed_out)
+    with ProcessPoolExecutor(max_workers=args.n_workers, mp_context=ctx) as pool:
+        futures = {pool.submit(_fit_one_meter, task): task for task in tasks}
+        for future in as_completed(futures):
+            done += 1
+            res = future.result()
+            if res and "error" not in res:
+                results.append(res)
+                logger.info("[%d/%d] building=%d meter=%d  OK",
+                            done, len(tasks), res["building_id"], res["meter"])
+            else:
+                bid = res.get("building_id", "?") if res else "?"
+                err = res.get("error", "unknown") if res else "exception"
+                logger.warning("[%d/%d] building=%d FAILED: %s", done, len(tasks), bid, err)
+
+    elapsed = time.perf_counter() - t0
+    logger.info("Done. %.1f min, %d/%d meters succeeded.",
+                elapsed / 60, len(results), len(tasks))
 
     if not results:
-        log.error("No ARIMA results — exiting")
+        logger.error("No ARIMA results collected.")
         return
 
-    all_preds   = np.concatenate([np.array(r["preds"])   for r in results])
-    all_actuals = np.concatenate([np.array(r["actuals"]) for r in results])
-
-    # ARIMA predicts in original scale — clip negatives but no upper cap
-    all_preds   = np.clip(all_preds, 0, None)
-    all_actuals = np.clip(all_actuals, 0, None)
-
-    rmse_val  = float(np.sqrt(np.mean((all_preds - all_actuals) ** 2)))
-    mae_val   = float(np.mean(np.abs(all_preds - all_actuals)))
-    mean_y    = float(np.mean(all_actuals)) if np.mean(all_actuals) > 0 else 1.0
-    cv_rmse   = rmse_val / mean_y
-    rmsle_val = float(np.sqrt(np.mean((np.log1p(all_preds) - np.log1p(all_actuals)) ** 2)))
-
-    METER_NAMES = {0: "electricity", 1: "chilledwater", 2: "steam", 3: "hotwater"}
-    meter_groups: dict[int, tuple[list, list]] = {}
+    # Assemble into a DataFrame for scoring.
+    all_rows = []
     for r in results:
-        m = r["meter"]
-        meter_groups.setdefault(m, ([], []))
-        meter_groups[m][0].extend(r["preds"])
-        meter_groups[m][1].extend(r["actuals"])
-    by_meter = []
-    for m_code, (preds_m, acts_m) in sorted(meter_groups.items()):
-        pa = np.clip(np.array(preds_m), 0, None)
-        aa = np.clip(np.array(acts_m), 0, None)
-        mn = np.mean(aa) if np.mean(aa) > 0 else 1.0
-        by_meter.append({
-            "meter_name": METER_NAMES.get(m_code, str(m_code)),
-            "n": len(pa),
-            "rmse": float(np.sqrt(np.mean((pa - aa) ** 2))),
-            "mae": float(np.mean(np.abs(pa - aa))),
-            "cv_rmse": float(np.sqrt(np.mean((pa - aa) ** 2)) / mn),
-            "rmsle": float(np.sqrt(np.mean((np.log1p(pa) - np.log1p(aa)) ** 2))),
-        })
+        bid, mtr = r["building_id"], r["meter"]
+        for ts_str, pred_val, actual_val in zip(r["val_ts"], r["pred"], r["actual"]):
+            all_rows.append({"building_id": bid, "meter": mtr,
+                             "ts_str": ts_str, "pred": float(pred_val),
+                             "actual": float(actual_val)})
 
-    log.info("[arima] RMSE=%.2f | MAE=%.2f | CV-RMSE=%.3f | meters=%d | rows=%d",
-             rmse_val, mae_val, cv_rmse, len(results), len(all_preds))
-    for bm in by_meter:
-        log.info("  %s: n=%d RMSE=%.1f", bm["meter_name"], bm["n"], bm["rmse"])
+    pred_df = pd.DataFrame(all_rows)
 
-    metrics_path = cfg.paths.metrics / f"models_{args.feature_set}.json"
-    table_path   = cfg.paths.tables  / f"models_{args.feature_set}.csv"
+    val_meta = val_full.copy()
+    val_meta["ts_str"] = pd.to_datetime(val_meta[ts_col]).dt.strftime("%Y-%m-%d %H:%M:%S")
+    available = [c for c in ["building_id", "meter", ts_col, "meter_reading",
+                              "primary_use", "site_id", "ts_str"]
+                 if c in val_meta.columns]
+    merged = pred_df.merge(val_meta[available], on=["building_id", "meter", "ts_str"],
+                           how="inner")
 
-    existing = load_json(metrics_path) if metrics_path.exists() else {"models": {}, "baselines": {}}
-    existing.setdefault("models", {})
+    if merged.empty:
+        logger.error("Merge empty — timestamp alignment failed.")
+        return
 
-    existing["models"]["arima"] = {
-        "family": "time_series",
-        "metrics": {
-            "rmse": rmse_val,
-            "mae": mae_val,
-            "cv_rmse": cv_rmse,
-            "rmsle": rmsle_val,
-        },
-        "by_meter": by_meter,
-        "by_primary_use": [],
-        "by_site": [],
+    y_pred_real = np.clip(merged["pred"].to_numpy(dtype=np.float64), 0, None)
+    y_true_real = np.clip(merged["actual"].to_numpy(dtype=np.float64), 0, None)
+    preds_log   = np.log1p(y_pred_real).astype(np.float32)
+    y_true_log  = np.log1p(y_true_real).astype(np.float32)
+
+    eval_payload = evaluate_predictions(merged, preds_log, y_true_log, target_log=True)
+    overall = eval_payload["overall"]
+
+    logger.info("[arima] RMSE=%.2f | MAE=%.2f | CV-RMSE=%.3f | n_meters=%d",
+                overall["rmse"], overall["mae"], overall["cv_rmse"], len(results))
+
+    # Persist predictions + update results tables.
+    pred_dir = cfg.paths.metrics / "predictions_engineered"
+    pred_dir.mkdir(parents=True, exist_ok=True)
+    np.save(pred_dir / "arima_log_preds.npy", preds_log)
+
+    new_row = {"model": "arima", "family": "time_series",
+               **overall, "train_seconds": float(elapsed)}
+
+    metrics_path = cfg.paths.metrics / "models_engineered.json"
+    table_path   = cfg.paths.tables  / "models_engineered.csv"
+
+    existing = load_json(metrics_path) if metrics_path.exists() else {"models": {}}
+    existing.setdefault("models", {})["arima"] = {
+        "family": "time_series", "metrics": overall,
+        "by_primary_use": eval_payload["by_primary_use"],
+        "by_meter": eval_payload["by_meter"],
+        "by_site": eval_payload["by_site"],
         "feature_importance": None,
         "train_seconds": float(elapsed),
-        "n_predicted_rows": len(all_preds),
         "n_meters": len(results),
+        "n_predicted_rows": len(merged),
     }
-
     save_json(existing, metrics_path)
-    log.info("Saved to %s", metrics_path)
 
-    rows = []
-    for name, m in existing["models"].items():
-        met = m["metrics"]
-        rows.append({
-            "model": name, "family": m["family"],
-            "rmse": met["rmse"], "mae": met["mae"],
-            "cv_rmse": met["cv_rmse"], "rmsle": met["rmsle"],
-            "train_seconds": m.get("train_seconds", 0),
-        })
-    for name, b in existing.get("baselines", {}).items():
-        met = b["metrics"]
-        rows.append({
-            "model": f"baseline_{name}", "family": "baseline",
-            "rmse": met["rmse"], "mae": met["mae"],
-            "cv_rmse": met["cv_rmse"], "rmsle": met["rmsle"],
-            "train_seconds": 0,
-        })
-    pd.DataFrame(rows).to_csv(table_path, index=False)
-    log.info("Updated %s", table_path)
+    df = pd.read_csv(table_path) if table_path.exists() else pd.DataFrame()
+    df = df[df["model"] != "arima"] if not df.empty else df
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True).sort_values("rmse")
+    df.to_csv(table_path, index=False)
+    logger.info("Updated %s and %s", table_path, metrics_path)
 
 
 if __name__ == "__main__":

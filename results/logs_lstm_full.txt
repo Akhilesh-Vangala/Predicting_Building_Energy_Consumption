@@ -1,0 +1,100 @@
+2026-05-07 16:47:36 | INFO | __main__ | Loading data (feature_set=engineered)...
+2026-05-07 16:47:36 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-07 16:47:36 | INFO | src.data.load | Loaded 139773 hourly weather records across 16 sites
+2026-05-07 16:47:36 | INFO | src.data.load | Loaded metadata for 1449 buildings across 16 sites
+2026-05-07 16:47:36 | INFO | src.data.load | Filtering to 482 buildings from 4 sites
+2026-05-07 16:47:56 | INFO | src.data.load | Read 20,216,100 rows, kept 8,490,327 after site filter
+2026-05-07 16:47:56 | INFO | src.pipeline | Loaded 8,490,327 readings, 1,449 meta rows, 139,773 weather rows
+2026-05-07 16:47:58 | INFO | src.data.clean | Dropped 564,126 rows in zero-streaks of 48+ hours
+2026-05-07 16:47:58 | INFO | src.data.clean | Capped 7,885 readings at the 0.999 per-meter quantile
+2026-05-07 16:47:58 | INFO | src.pipeline | After clean: 7,926,201 rows
+2026-05-07 16:47:58 | INFO | src.features.pipeline | Building features for 7,926,201 rows (is_train=True)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1241: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis, out=out, keepdims=keepdims)
+/Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1241: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis, out=out, keepdims=keepdims)
+2026-05-07 16:48:05 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-07 16:48:08 | INFO | src.features.target_encoding | Fit target encoder on ['primary_use', 'hour'] -> 384 categories
+2026-05-07 16:48:09 | INFO | src.pipeline | After dropna on features: train 5,949,707 -> 5,784,969
+2026-05-07 16:48:09 | INFO | __main__ | Train cutoff: 2016-09-30 23:00:00
+2026-05-07 16:48:09 | INFO | __main__ | Total meters: 970  |  chunk size: 20
+2026-05-07 16:48:09 | INFO | __main__ | Fitting feature scaler on random sample of train rows...
+2026-05-07 16:48:11 | INFO | __main__ | Scaler fitted on 100000 rows.
+2026-05-07 16:48:11 | INFO | __main__ | Device: cpu
+2026-05-07 16:48:13 | INFO | __main__ | ep=0  chunk 0/49  elapsed=0.0 min
+2026-05-07 16:49:37 | INFO | __main__ | ep=0  chunk 10/49  elapsed=1.4 min
+2026-05-07 16:50:52 | INFO | __main__ | ep=0  chunk 20/49  elapsed=2.7 min
+2026-05-07 16:51:53 | INFO | __main__ | ep=0  chunk 30/49  elapsed=3.7 min
+2026-05-07 16:52:51 | INFO | __main__ | ep=0  chunk 40/49  elapsed=4.6 min
+2026-05-07 16:53:48 | INFO | __main__ | ep=0  train_mse=2.9042  val_mse=2.6605  elapsed=5.6 min
+2026-05-07 16:53:49 | INFO | __main__ | ep=1  chunk 0/49  elapsed=5.6 min
+2026-05-07 16:54:52 | INFO | __main__ | ep=1  chunk 10/49  elapsed=6.6 min
+2026-05-07 16:55:53 | INFO | __main__ | ep=1  chunk 20/49  elapsed=7.7 min
+2026-05-07 16:56:56 | INFO | __main__ | ep=1  chunk 30/49  elapsed=8.7 min
+2026-05-07 16:57:55 | INFO | __main__ | ep=1  chunk 40/49  elapsed=9.7 min
+2026-05-07 16:58:55 | INFO | __main__ | ep=1  train_mse=2.3372  val_mse=2.0126  elapsed=10.7 min
+2026-05-07 16:58:55 | INFO | __main__ | ep=2  chunk 0/49  elapsed=10.7 min
+2026-05-07 16:59:57 | INFO | __main__ | ep=2  chunk 10/49  elapsed=11.7 min
+2026-05-07 17:00:58 | INFO | __main__ | ep=2  chunk 20/49  elapsed=12.7 min
+2026-05-07 17:02:00 | INFO | __main__ | ep=2  chunk 30/49  elapsed=13.8 min
+2026-05-07 17:03:01 | INFO | __main__ | ep=2  chunk 40/49  elapsed=14.8 min
+2026-05-07 17:04:00 | INFO | __main__ | ep=2  train_mse=2.2171  val_mse=2.3456  elapsed=15.8 min
+2026-05-07 17:04:01 | INFO | __main__ | ep=3  chunk 0/49  elapsed=15.8 min
+2026-05-07 17:05:01 | INFO | __main__ | ep=3  chunk 10/49  elapsed=16.8 min
+2026-05-07 17:06:01 | INFO | __main__ | ep=3  chunk 20/49  elapsed=17.8 min
+2026-05-07 17:07:02 | INFO | __main__ | ep=3  chunk 30/49  elapsed=18.8 min
+2026-05-07 17:08:04 | INFO | __main__ | ep=3  chunk 40/49  elapsed=19.9 min
+2026-05-07 17:09:03 | INFO | __main__ | ep=3  train_mse=2.0020  val_mse=1.8510  elapsed=20.8 min
+2026-05-07 17:09:04 | INFO | __main__ | ep=4  chunk 0/49  elapsed=20.8 min
+2026-05-07 17:10:04 | INFO | __main__ | ep=4  chunk 10/49  elapsed=21.8 min
+2026-05-07 17:11:07 | INFO | __main__ | ep=4  chunk 20/49  elapsed=22.9 min
+2026-05-07 17:12:08 | INFO | __main__ | ep=4  chunk 30/49  elapsed=23.9 min
+2026-05-07 17:13:08 | INFO | __main__ | ep=4  chunk 40/49  elapsed=24.9 min
+2026-05-07 17:14:08 | INFO | __main__ | ep=4  train_mse=1.8499  val_mse=1.6703  elapsed=25.9 min
+2026-05-07 17:14:08 | INFO | __main__ | ep=5  chunk 0/49  elapsed=25.9 min
+2026-05-07 17:15:11 | INFO | __main__ | ep=5  chunk 10/49  elapsed=27.0 min
+2026-05-07 17:16:12 | INFO | __main__ | ep=5  chunk 20/49  elapsed=28.0 min
+2026-05-07 17:17:11 | INFO | __main__ | ep=5  chunk 30/49  elapsed=29.0 min
+2026-05-07 17:18:14 | INFO | __main__ | ep=5  chunk 40/49  elapsed=30.0 min
+2026-05-07 17:19:13 | INFO | __main__ | ep=5  train_mse=1.6518  val_mse=2.3078  elapsed=31.0 min
+2026-05-07 17:19:13 | INFO | __main__ | ep=6  chunk 0/49  elapsed=31.0 min
+2026-05-07 17:20:15 | INFO | __main__ | ep=6  chunk 10/49  elapsed=32.0 min
+2026-05-07 17:21:14 | INFO | __main__ | ep=6  chunk 20/49  elapsed=33.0 min
+2026-05-07 17:22:16 | INFO | __main__ | ep=6  chunk 30/49  elapsed=34.0 min
+2026-05-07 17:23:18 | INFO | __main__ | ep=6  chunk 40/49  elapsed=35.1 min
+2026-05-07 17:24:17 | INFO | __main__ | ep=6  train_mse=1.5875  val_mse=1.9086  elapsed=36.1 min
+2026-05-07 17:24:17 | INFO | __main__ | ep=7  chunk 0/49  elapsed=36.1 min
+2026-05-07 17:25:18 | INFO | __main__ | ep=7  chunk 10/49  elapsed=37.1 min
+2026-05-07 17:26:20 | INFO | __main__ | ep=7  chunk 20/49  elapsed=38.1 min
+2026-05-07 17:27:22 | INFO | __main__ | ep=7  chunk 30/49  elapsed=39.2 min
+2026-05-07 17:28:23 | INFO | __main__ | ep=7  chunk 40/49  elapsed=40.2 min
+2026-05-07 17:29:22 | INFO | __main__ | ep=7  train_mse=1.4532  val_mse=1.3803  elapsed=41.1 min
+2026-05-07 17:29:22 | INFO | __main__ | ep=8  chunk 0/49  elapsed=41.1 min
+2026-05-07 17:30:25 | INFO | __main__ | ep=8  chunk 10/49  elapsed=42.2 min
+2026-05-07 17:31:27 | INFO | __main__ | ep=8  chunk 20/49  elapsed=43.2 min
+2026-05-07 17:32:29 | INFO | __main__ | ep=8  chunk 30/49  elapsed=44.3 min
+2026-05-07 17:33:28 | INFO | __main__ | ep=8  chunk 40/49  elapsed=45.2 min
+2026-05-07 17:34:28 | INFO | __main__ | ep=8  train_mse=1.4020  val_mse=1.4960  elapsed=46.2 min
+2026-05-07 17:34:28 | INFO | __main__ | ep=9  chunk 0/49  elapsed=46.2 min
+2026-05-07 17:35:30 | INFO | __main__ | ep=9  chunk 10/49  elapsed=47.3 min
+2026-05-07 17:36:31 | INFO | __main__ | ep=9  chunk 20/49  elapsed=48.3 min
+2026-05-07 17:37:33 | INFO | __main__ | ep=9  chunk 30/49  elapsed=49.3 min
+2026-05-07 17:38:34 | INFO | __main__ | ep=9  chunk 40/49  elapsed=50.4 min
+2026-05-07 17:39:35 | INFO | __main__ | ep=9  train_mse=1.3567  val_mse=1.2906  elapsed=51.4 min
+2026-05-07 17:39:35 | INFO | __main__ | ep=10  chunk 0/49  elapsed=51.4 min
+2026-05-07 17:40:38 | INFO | __main__ | ep=10  chunk 10/49  elapsed=52.4 min
+2026-05-07 17:41:38 | INFO | __main__ | ep=10  chunk 20/49  elapsed=53.4 min
+2026-05-07 17:42:39 | INFO | __main__ | ep=10  chunk 30/49  elapsed=54.4 min
+2026-05-07 17:43:38 | INFO | __main__ | ep=10  chunk 40/49  elapsed=55.4 min
+2026-05-07 17:44:36 | INFO | __main__ | ep=10  train_mse=1.3561  val_mse=1.1704  elapsed=56.4 min
+2026-05-07 17:44:36 | INFO | __main__ | ep=11  chunk 0/49  elapsed=56.4 min
+2026-05-07 17:45:37 | INFO | __main__ | ep=11  chunk 10/49  elapsed=57.4 min
+2026-05-07 17:46:38 | INFO | __main__ | ep=11  chunk 20/49  elapsed=58.4 min
+2026-05-07 17:47:39 | INFO | __main__ | ep=11  chunk 30/49  elapsed=59.4 min
+2026-05-07 17:48:40 | INFO | __main__ | ep=11  chunk 40/49  elapsed=60.5 min
+2026-05-07 17:49:37 | INFO | __main__ | ep=11  train_mse=1.3158  val_mse=1.7927  elapsed=61.4 min
+2026-05-07 17:49:37 | INFO | __main__ | Running full validation inference over all 970 meters...
+2026-05-07 17:55:11 | INFO | __main__ | Collected 1969505 predictions (99.7% of val_full).
+2026-05-07 17:55:12 | INFO | __main__ | [lstm_full] RMSE=5188.93 | MAE=352.52 | CV-RMSE=6.861 | coverage=99.7%
+2026-05-07 17:55:12 | INFO | __main__ | Saved predictions to /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/metrics/predictions_engineered/lstm_full_log_preds.npy
+2026-05-07 17:55:12 | INFO | __main__ | Updated /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/tables/models_engineered.csv and /Users/akhileshvangala/Desktop/Predicting Building Energy Consumption/results/metrics/models_engineered.json
