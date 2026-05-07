@@ -42,10 +42,6 @@ def _save(fig: plt.Figure, out_dir: Path, name: str) -> None:
     plt.close(fig)
 
 
-# ---------------------------------------------------------------------------
-# Results figures — read from saved CSV / JSON artifacts
-# ---------------------------------------------------------------------------
-
 def fig_model_rmse_bar(eng_csv: Path, out_dir: Path) -> None:
     df = pd.read_csv(eng_csv)
     # Exclude ARIMA — evaluated on sampled meters only, not comparable to full-val models
@@ -186,10 +182,7 @@ def fig_per_cluster_vs_global(clustering_json: Path, out_dir: Path) -> None:
     logger.info("per_cluster_vs_global done")
 
 
-# ---------------------------------------------------------------------------
-# Data-dependent figures — require prepare_data() to be called first
-# ---------------------------------------------------------------------------
-
+# figures below require prepare_data() — skip with --skip-eda
 def fig_eda_target_distribution(train_df: pd.DataFrame, out_dir: Path) -> None:
     from src.viz.eda_plots import plot_target_distribution
     fig = plot_target_distribution(train_df)
@@ -331,10 +324,6 @@ def fig_cluster_centroids(train_df: pd.DataFrame, clustering_json: Path,
     logger.info("cluster_centroids done (k=%d)", k_star)
 
 
-# ---------------------------------------------------------------------------
-# Sample complexity & imputation experiment figures
-# ---------------------------------------------------------------------------
-
 def fig_sample_complexity(csv_path: Path, out_dir: Path) -> None:
     df = pd.read_csv(csv_path)
     if df.empty:
@@ -394,10 +383,6 @@ def fig_imputation_experiment(csv_path: Path, out_dir: Path) -> None:
     _save(fig, out_dir, "imputation_experiment")
     logger.info("imputation_experiment done")
 
-
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 
 def main() -> None:
     setup_logging()

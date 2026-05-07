@@ -85,7 +85,6 @@ def _apply_strategy(df: pd.DataFrame, strategy: str, min_hours: int,
 
     elif strategy == "meter_mean":
         bad = _get_streak_mask(df, min_hours, target_col)
-        # Compute mean over non-streak readings for each (building, meter)
         means = (
             df.loc[~bad]
             .groupby(["building_id", "meter"])[target_col]
@@ -220,7 +219,6 @@ def _plot(df: pd.DataFrame, out_dir: Path) -> None:
               for r in rmses]
     bars = ax.barh(labels, rmses, color=colors)
 
-    # Annotate each bar with RMSE value
     for bar, val in zip(bars, rmses):
         ax.text(val * 1.005, bar.get_y() + bar.get_height() / 2,
                 f"{val:,.1f}", va="center", fontsize=9)

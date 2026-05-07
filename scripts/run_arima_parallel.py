@@ -89,14 +89,12 @@ def main() -> None:
     t0 = time.perf_counter()
     prep = prepare_data(cfg, feature_set=args.feature_set)
 
-    # Sample meters
     keys = ["building_id", "meter"]
     all_keys = prep.train_full[keys].drop_duplicates()
     if max_meters and len(all_keys) > max_meters:
         all_keys = all_keys.sample(n=int(max_meters), random_state=42)
     log.info("Fitting ARIMA on %d meters with %d workers", len(all_keys), args.n_jobs)
 
-    # Build per-meter series for workers
     target_col = "meter_reading"
     timestamp_col = "timestamp"
     work_items = []
@@ -112,7 +110,6 @@ def main() -> None:
 
     log.info("Data prep done in %.1fs, submitting %d tasks", time.perf_counter() - t0, len(work_items))
 
-    # Run in parallel with per-meter timeout
     t1 = time.perf_counter()
     results = []
     timed_out = 0
@@ -136,11 +133,10 @@ def main() -> None:
         log.error("No ARIMA results — exiting")
         return
 
-    # Aggregate predictions across all meters
     all_preds   = np.concatenate([np.array(r["preds"])   for r in results])
     all_actuals = np.concatenate([np.array(r["actuals"]) for r in results])
 
-    # Evaluate: clip at 0, no upper clip (real-space baseline approach)
+    # ARIMA predicts in original scale — clip negatives but no upper cap
     all_preds   = np.clip(all_preds, 0, None)
     all_actuals = np.clip(all_actuals, 0, None)
 
@@ -150,7 +146,6 @@ def main() -> None:
     cv_rmse   = rmse_val / mean_y
     rmsle_val = float(np.sqrt(np.mean((np.log1p(all_preds) - np.log1p(all_actuals)) ** 2)))
 
-    # Per-meter-type breakdown
     METER_NAMES = {0: "electricity", 1: "chilledwater", 2: "steam", 3: "hotwater"}
     meter_groups: dict[int, tuple[list, list]] = {}
     for r in results:
@@ -177,7 +172,6 @@ def main() -> None:
     for bm in by_meter:
         log.info("  %s: n=%d RMSE=%.1f", bm["meter_name"], bm["n"], bm["rmse"])
 
-    # Merge into existing metrics JSON
     metrics_path = cfg.paths.metrics / f"models_{args.feature_set}.json"
     table_path   = cfg.paths.tables  / f"models_{args.feature_set}.csv"
 
@@ -204,7 +198,6 @@ def main() -> None:
     save_json(existing, metrics_path)
     log.info("Saved to %s", metrics_path)
 
-    # Rebuild CSV table
     rows = []
     for name, m in existing["models"].items():
         met = m["metrics"]
