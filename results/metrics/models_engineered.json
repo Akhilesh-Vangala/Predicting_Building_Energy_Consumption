@@ -265,7 +265,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 3.812806
     },
     "ridge": {
       "family": "linear",
@@ -474,7 +474,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 10.823676
     },
     "lasso": {
       "family": "linear",
@@ -683,7 +683,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 10.612549
     },
     "elasticnet": {
       "family": "linear",
@@ -892,7 +892,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 52.941347
     },
     "decision_tree": {
       "family": "trees",
@@ -1101,7 +1101,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 92.710856
     },
     "random_forest": {
       "family": "trees",
@@ -1310,7 +1310,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 918.490913
     },
     "lightgbm": {
       "family": "trees",
@@ -1518,8 +1518,36 @@
           "rmsle": 0.5919194706739414
         }
       ],
-      "feature_importance": null,
-      "train_seconds": 0.0
+      "feature_importance": {
+        "hour_sin": 539891.8830516338,
+        "hour_cos": 423748.19829034805,
+        "dayofweek_sin": 321621.41182756424,
+        "dayofweek_cos": 351530.62027454376,
+        "month_sin": 347133.3838765621,
+        "month_cos": 195928.17215538025,
+        "is_weekend": 10058.618253707886,
+        "is_holiday": 22450.897617340088,
+        "lag_24h": 101919130.73949313,
+        "lag_168h": 40713756.94523311,
+        "lag_diff_24h": 1083405.2858223915,
+        "rolling_mean_24h": 43362324.2547009,
+        "rolling_std_24h": 1705682.3177435398,
+        "rolling_mean_168h": 865273.6224656105,
+        "rolling_std_168h": 737468.2303996086,
+        "air_temperature": 454900.4081168175,
+        "dew_temperature": 697463.2468223572,
+        "temp_squared": 123494.0971930027,
+        "wind_speed": 142668.14643979073,
+        "cloud_coverage": 95903.06785869598,
+        "precip_depth_1_hr": 28094.37658882141,
+        "log_square_feet": 821104.5831794739,
+        "building_age": 98408.859790802,
+        "primary_use_code": 472056.2579269409,
+        "hour_x_weekend": 91189.9186668396,
+        "sqft_x_temp": 216964.60014677048,
+        "te_primary_use_x_hour": 472160.1033177376
+      },
+      "train_seconds": 283.0
     },
     "mlp": {
       "family": "neural",
@@ -1728,7 +1756,7 @@
         }
       ],
       "feature_importance": null,
-      "train_seconds": 0.0
+      "train_seconds": 307.0
     }
   }
 }
