@@ -1,3 +1,5 @@
+.claude/
+HANDOFF.md
 __pycache__/
 *.py[cod]
 *.so
