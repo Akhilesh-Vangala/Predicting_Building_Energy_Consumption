@@ -1,26 +1,23 @@
 # Predicting Building Energy Consumption
 
-DS-GA 1003 — Machine Learning, NYU Spring 2026 (Applied ML track)
+DS-GA 1003 — Machine Learning, NYU Spring 2026  
 Akhilesh Vangala (sv3129) · Lucas Yao (ly2808) · Anvita Reddy (ari3289)
 
-We forecast hourly meter-level energy consumption for 1,449 buildings in the ASHRAE
-Great Energy Predictor III dataset and compare ten methods drawn from four model
-families — linear, tree ensembles, classical time series, and neural networks — on a
-shared feature set and time-based split. We then run a clustering experiment that groups
-buildings by their hour-of-day consumption profile, and a per-building-type / per-meter-type
-failure analysis to characterise where each family breaks down.
+This is our final project for the Applied ML course at NYU CDS. We wanted to answer a pretty basic question that's surprisingly hard to answer from the existing literature: when you hold the features and data pipeline constant, how much does model choice actually matter for building energy forecasting?
 
-The full proposal is in `report/proposal.pdf`. The final paper is in `report/report.pdf`.
+Most prior work on the ASHRAE GEPIII dataset has teams varying their preprocessing, features, and models all at once, so you can't tell what's actually driving the results. We kept everything fixed — same 27 engineered features, same cleaning, same chronological split — and only changed the model.
+
+We ended up comparing linear models (OLS, Ridge, Lasso, ElasticNet), tree ensembles (Decision Tree, Random Forest, LightGBM), a global LSTM, per-meter ARIMA, and a 3-layer MLP. We also ran a K-means clustering experiment that fits separate LightGBM models per consumption-profile cluster, and a per-use failure analysis to see where each family breaks down.
+
+The final paper is in `report/`.
 
 ## Reproducing the results
 
-The whole pipeline is meant to be reproducible from a single environment and a single
-config file. Once the data is in place, every figure and table in the report comes from
-`make all` or the equivalent script under `scripts/`.
+Everything runs off a single config file. Once the data is in place, all the figures and tables in the paper come from running the scripts under `scripts/`.
 
 ### 1. Environment
 
-Python 3.10 or later.
+Python 3.10+.
 
 ```bash
 python3 -m venv .venv
@@ -30,8 +27,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-`pip install -e .` registers the `src/` package as `bep` so the notebooks and scripts can
-import it without `sys.path` hacks.
+`pip install -e .` registers `src/` as the `bep` package so the notebooks and scripts can import it without sys.path hacks.
 
 ### 2. Data
 
@@ -39,18 +35,14 @@ Three files from the ASHRAE GEPIII Kaggle competition go into `data/raw/`:
 
 ```
 data/raw/
-  train.csv               # 20.2M hourly meter readings, 1,449 buildings
+  train.csv               # 20.2M hourly readings, 1,449 buildings
   building_metadata.csv   # site_id, primary_use, square_feet, year_built, floor_count
   weather_train.csv       # hourly weather per site
 ```
 
-The competition is closed, so Kaggle requires a one-time *Late Submission* acknowledgement
-to unlock the download. Once that is done you can either pull the files manually or run
-`python scripts/download_data.py` (needs `~/.kaggle/kaggle.json`).
+The competition is closed so you'll need to accept the late submission terms on Kaggle to unlock the download. After that you can pull files manually or run `python scripts/download_data.py` if you have `~/.kaggle/kaggle.json` set up.
 
-The default config uses a 4-site subset (sites 2, 4, 13, 14) — about 3 million rows after
-cleaning — which keeps every model trainable on a single workstation. Switching
-`data.use_full: true` in `configs/default.yaml` runs on the entire 20.2M-row dataset.
+We ran everything on a 4-site subset (sites 2, 4, 13, 14), which gives about 7.9 million rows after cleaning and covers all four meter types and all primary-use categories. It's manageable on a single workstation. You can switch to the full 20.2M row dataset with `data.use_full: true` in `configs/default.yaml` if you have the compute for it.
 
 ### 3. Pipeline
 
@@ -62,82 +54,72 @@ python -m scripts.run_clustering --config configs/default.yaml
 python -m scripts.run_failure_analysis --config configs/default.yaml
 ```
 
-`make all` runs all of the above in order. Outputs land in `results/`:
+Or just `make all` to run everything in order. Results go to `results/`:
 
 ```
 results/
-  metrics/                # per-model JSON with RMSE, CV-RMSE, MAE, train time
-  tables/                 # publication-ready CSV/markdown tables
-  plots/                  # every figure used in the report
-  models/                 # serialised models (gitignored)
+  metrics/                # per-model JSON with RMSE, MAE, CV-RMSE, training time
+  tables/                 # CSV tables used in the paper
+  plots/                  # all figures from the paper
+  models/                 # serialized model files (gitignored)
 ```
 
 ### 4. Notebooks
 
-The `notebooks/` folder mirrors the report and is the easiest way to follow the analysis
-end to end:
+The notebooks follow the structure of the paper and are the easiest way to walk through the analysis:
 
 | Notebook | What it covers |
 |---|---|
-| `01_eda.ipynb` | Distributions, missingness, temporal patterns, per-site / per-meter / per-use breakdowns |
-| `02_feature_engineering.ipynb` | Walks through all 28 features and shows what each one captures |
+| `01_eda.ipynb` | Distributions, missingness, temporal patterns, per-site/meter/use breakdowns |
+| `02_feature_engineering.ipynb` | All 27 features and what each one captures |
 | `03_linear_models.ipynb` | OLS, Ridge, Lasso, ElasticNet with time-series CV |
 | `04_tree_models.ipynb` | Decision Tree, Random Forest, LightGBM with feature importance |
-| `05_time_series.ipynb` | Per-meter ARIMA and 168-hour LSTM |
+| `05_time_series.ipynb` | Per-meter ARIMA and the 168-hour global LSTM |
 | `06_mlp.ipynb` | 3-layer MLP with dropout and early stopping |
-| `07_clustering.ipynb` | K-means over hour-of-day profiles + per-cluster LightGBM |
-| `08_analysis.ipynb` | 5-feature vs 28-feature ablation, per-type failure analysis, gap analysis |
+| `07_clustering.ipynb` | K-means over 24h consumption profiles + per-cluster LightGBM |
+| `08_analysis.ipynb` | 5-feature vs 27-feature ablation, per-type failure analysis |
 
-## Methods compared
+## Models compared
 
 | Family | Models |
 |---|---|
 | Linear | OLS, Ridge, Lasso, ElasticNet |
 | Trees | Decision Tree, Random Forest, LightGBM |
-| Time series | Per-meter ARIMA, LSTM (168h lookback) |
+| Time series | Per-meter ARIMA, global LSTM (168h lookback) |
 | Neural | 3-layer MLP (256 / 128 / 64) |
 
-All ten models train on the same 28 engineered features and the same time-based split
-(Jan–Sep 2016 train, Oct–Dec 2016 validation). LightGBM additionally serves as the
-backbone for the per-cluster clustering experiment.
+All ten models train on the same 27 engineered features and the same time-based split (Jan–Sep 2016 train, Oct–Dec 2016 val). Any difference in validation RMSE is coming from the model, not from different preprocessing choices.
 
 ## Data
 
 | Item | Value |
 |---|---|
 | Source | ASHRAE Great Energy Predictor III (Kaggle, 2019) |
-| Coverage | All of 2016, 16 sites, 1,449 buildings, 20.2M hourly readings |
-| Subset used | 4 sites (2, 4, 13, 14), ≈3M rows after cleaning |
+| Full dataset | 20.2M hourly readings, 1,449 buildings, 16 sites, all of 2016 |
+| Subset used | Sites 2, 4, 13, 14 — 482 buildings, ~7.9M rows after cleaning |
 | Target | `meter_reading` in kWh, trained on `log1p(y)` |
-| Split | Train Jan–Sep 2016, validate Oct–Dec 2016, no shuffling |
+| Split | Jan–Sep 2016 train, Oct–Dec 2016 val, strictly chronological |
 
-Cleaning: site 0 electricity readings are converted from kBTU to kWh, zero-streaks of
-≥48 consecutive hours are flagged as outages and removed, readings above the 99.9th
-per-meter quantile are capped, and weather gaps are forward filled per site.
+Cleaning: zero-consumption streaks of 48+ consecutive hours are dropped as sensor outages, readings above the 99.9th percentile per (building, meter) are capped, and weather gaps are filled by linear interpolation within each site.
 
-## Repository layout
+## Repo layout
 
 ```
 .
-├── README.md
-├── requirements.txt
-├── setup.py
-├── Makefile
-├── configs/                 # YAML configs for the whole pipeline
-├── data/
-│   └── raw/                 # CSVs go here (gitignored)
-├── notebooks/               # 01–08, mirror the report sections
-├── report/                  # proposal PDF, final paper LaTeX + PDF
-├── results/                 # generated metrics, tables, plots, models
-├── scripts/                 # CLI entry points for each pipeline stage
+├── configs/                 # YAML config for the whole pipeline
+├── data/raw/                # raw CSVs go here (gitignored)
+├── notebooks/               # 01–08, one notebook per analysis section
+├── report/                  # proposal and final paper
+├── results/                 # metrics, tables, figures, models
+├── scripts/                 # pipeline entry points
 ├── src/
-│   ├── data/                # load, clean, time-split
-│   ├── features/            # 28 engineered features
-│   ├── models/              # one module per family + a shared base
-│   ├── evaluation/          # metrics + per-group breakdowns
-│   ├── clustering/          # K-means consumption profiles
+│   ├── data/                # loading, cleaning, time-splitting
+│   ├── features/            # 27 engineered features
+│   ├── models/              # one module per model family
+│   ├── evaluation/          # metrics and per-group breakdowns
+│   ├── clustering/          # K-means over consumption profiles
 │   ├── viz/                 # plotting helpers
-│   ├── config.py            # config dataclasses
+│   ├── config.py
 │   └── utils.py
 └── tests/                   # unit tests (leakage, split, features)
 ```
