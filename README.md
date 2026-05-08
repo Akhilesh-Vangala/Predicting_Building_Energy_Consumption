@@ -3,11 +3,11 @@
 DS-GA 1003 — Machine Learning, NYU Spring 2026  
 Akhilesh Vangala (sv3129) · Lucas Yao (ly2808) · Anvita Reddy (ari3289)
 
-This is our final project for the Applied ML course at NYU CDS. We wanted to answer a pretty basic question that's surprisingly hard to answer from the existing literature: when you hold the features and data pipeline constant, how much does model choice actually matter for building energy forecasting?
+Final project for DS-GA 1003 at NYU. We're comparing ten ML models for predicting hourly building energy consumption on the ASHRAE Great Energy Predictor III dataset.
 
-Most prior work on the ASHRAE GEPIII dataset has teams varying their preprocessing, features, and models all at once, so you can't tell what's actually driving the results. We kept everything fixed — same 27 engineered features, same cleaning, same chronological split — and only changed the model.
+The main thing we wanted to do differently: give every model the exact same features, same cleaning, and same train/val split. Most ASHRAE results are hard to interpret because teams vary everything at once — features, preprocessing, model — so you can't tell what's actually doing the work. We just changed the model.
 
-We ended up comparing linear models (OLS, Ridge, Lasso, ElasticNet), tree ensembles (Decision Tree, Random Forest, LightGBM), a global LSTM, per-meter ARIMA, and a 3-layer MLP. We also ran a K-means clustering experiment that fits separate LightGBM models per consumption-profile cluster, and a per-use failure analysis to see where each family breaks down.
+We compared linear models (OLS, Ridge, Lasso, ElasticNet), tree ensembles (DT, RF, LightGBM), time-series models (ARIMA, global LSTM), and an MLP. We also ran K-means clustering on 24-hour consumption profiles to test whether per-cluster models help, and broke down failures by building type and meter type.
 
 ## Reproducing the results
 
