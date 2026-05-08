@@ -45,12 +45,4 @@ logs/
 mlruns/
 wandb/
 
-report/*.aux
-report/*.bbl
-report/*.blg
-report/*.log
-report/*.out
-report/*.toc
-report/*.synctex.gz
-report/*.fdb_latexmk
-report/*.fls
+report/

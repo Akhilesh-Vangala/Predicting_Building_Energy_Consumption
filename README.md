@@ -9,8 +9,6 @@ Most prior work on the ASHRAE GEPIII dataset has teams varying their preprocessi
 
 We ended up comparing linear models (OLS, Ridge, Lasso, ElasticNet), tree ensembles (Decision Tree, Random Forest, LightGBM), a global LSTM, per-meter ARIMA, and a 3-layer MLP. We also ran a K-means clustering experiment that fits separate LightGBM models per consumption-profile cluster, and a per-use failure analysis to see where each family breaks down.
 
-The final paper is in `report/`.
-
 ## Reproducing the results
 
 Everything runs off a single config file. Once the data is in place, all the figures and tables in the paper come from running the scripts under `scripts/`.
@@ -109,7 +107,6 @@ Cleaning: zero-consumption streaks of 48+ consecutive hours are dropped as senso
 ├── configs/                 # YAML config for the whole pipeline
 ├── data/raw/                # raw CSVs go here (gitignored)
 ├── notebooks/               # 01–08, one notebook per analysis section
-├── report/                  # proposal and final paper
 ├── results/                 # metrics, tables, figures, models
 ├── scripts/                 # pipeline entry points
 ├── src/
